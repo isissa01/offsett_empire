@@ -12,6 +12,7 @@ session_start();
   $id = $_GET['add_cart'];
   $name = $_GET['name'];
   $price= $_GET['price'];
+  $license= $_GET['license'];
   
   foreach($_SESSION['shopping_cart'] as $item){
     if($item['id'] === $id ) {
@@ -23,6 +24,7 @@ session_start();
     "id" => $id,
     "name" => $name,
     "price" => $price,
+    "license" => $license
   ];
 
 }
