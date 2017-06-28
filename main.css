@@ -56,6 +56,41 @@ nav#navbar-scroll{
   z-index: 100;ß
 }
 
+.dropdown .dropdown-menu{
+  padding: 10px;
+  width: 300px;
+  background-color: #ddd;
+  color: black; 
+    font-weight: bold;
+}
+
+.cart-item{
+  width: 100%;
+  margin: 0 auto 5px;
+  background-color: white;
+  border-bottom: 1px solid gray;
+  
+
+}
+
+.cart-count,
+.beat-name,
+.item-price,
+.total-price{
+  font-size: 1.5rem;
+}
+
+
+.item-price, .total-price{
+  text-align: right;
+}
+.license{
+  color: #999;
+  margin-top: 0;
+  padding-top: 0;
+  font-weight: normal;
+}
+
 
 #hero{
 /*  background:url("images/city.jpg") no-repeat;*/

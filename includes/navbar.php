@@ -34,7 +34,48 @@
                      }
                      ?> 
                      
-                     <li><a href="cart.php"><span class=" fa fa-shopping-cart"></span> Cart (<span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span>)</a></li>
+                     
+                     <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class=" fa fa-shopping-cart"></span> Cart (<span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span>)</a>
+                <ul class="dropdown-menu">
+                
+                <li><p>You have <span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span> items in your shopping cart</p></li>
+                <li class='row cart-item'>
+                 <div class="col-xs-8">
+                   <p class='beat-name'>Title</p>
+                  <p class='license'>license type</p>
+                 </div>
+                  <div class="col-xs-4">
+                    <p class='item-price'>24.99</p>
+                  </div>
+                </li>                
+                <li class='row cart-item'>
+                 <div class="col-xs-8">
+                   <p class='beat-name'>Title</p>
+                  <p class='license'>license type</p>
+                 </div>
+                  <div class="col-xs-4">
+                    <p class='item-price'>24.99</p>
+                  </div>
+                </li>
+                
+                <li class="row">
+                  <div class="col-xs-6">
+                    <a class="btn btn-primary" href="cart.php">Checkout</a>
+                  </div>
+                  <div class="col-xs-6">
+                    <span class='total-price pull-right'>54.32</span>
+                  </div>
+                </li>
+                  
+                
+                
+                
+                
+                </ul>
+              </li>
+                     
+                    
                    </ul>
                </div>
            </div>

@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
   if(!$result){
     die(mysqli_error($connection));
   }
-  
+  header("Location: cms.php?source=posts");
   
   
   
