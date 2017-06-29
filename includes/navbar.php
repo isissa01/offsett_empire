@@ -40,31 +40,32 @@
                 <ul class="dropdown-menu">
                 
                 <li><p>You have <span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span> items in your shopping cart</p></li>
+                
+                <?php 
+                  $total = 0;
+                  foreach($_SESSION['shopping_cart'] as $item){
+                    $total += $item['price'];
+                    
+                  ?>  
+                  
+                  
+                  
                 <li class='row cart-item'>
                  <div class="col-xs-8">
-                   <p class='beat-name'>Title</p>
-                  <p class='license'>license type</p>
+                   <p class='beat-name'><?php echo $item['name'];?></p>
+                  <p class='license'><?php echo $item['license'];?></p>
                  </div>
                   <div class="col-xs-4">
-                    <p class='item-price'>24.99</p>
+                    <p class='item-price'><?php echo $item['price'];?></p>
                   </div>
                 </li>                
-                <li class='row cart-item'>
-                 <div class="col-xs-8">
-                   <p class='beat-name'>Title</p>
-                  <p class='license'>license type</p>
-                 </div>
-                  <div class="col-xs-4">
-                    <p class='item-price'>24.99</p>
-                  </div>
-                </li>
-                
+                <?php }?>
                 <li class="row">
                   <div class="col-xs-6">
                     <a class="btn btn-primary" href="cart.php">Checkout</a>
                   </div>
                   <div class="col-xs-6">
-                    <span class='total-price pull-right'>54.32</span>
+                    <span class='total-price pull-right'><?php echo $total;?></span>
                   </div>
                 </li>
                   

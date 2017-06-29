@@ -326,7 +326,7 @@ if(location.pathname.includes('login.php')){
 } 
 
 
- //SELECTING WHICH SONG TO PLAY   
+ //SELECTING WHICH SONG TO PLAY AND ADDING ITEMS TO CART
 $('.playlist-table tbody').click(function(event){
   event.preventDefault();
 if($(event.target).parent().hasClass('track')){
@@ -337,17 +337,21 @@ if($(event.target).parent().hasClass('track')){
 else if($(event.target).parent().hasClass('song_price')){
   let url = $(event.target).attr('href');
   let id= $(event.target).data('id');
+  let license = "MP3 License";
   $.ajax(url,{
     method : 'get',
     data : {
       add_cart: id,
       name: $(event.target).parent().siblings('.song_title').text(),
-      price: 24.99
+      price: 24.99,
+      license: license
            },
     success: function(response){
       if (response !='no'){
         $cart = $('.cart_count');
-        $cart.text(parseInt($cart.text()) + 1);
+        count =parseInt($cart.html());
+        
+        $cart.text(count + 1);
       }
       
       
