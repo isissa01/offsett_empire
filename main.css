@@ -47,7 +47,7 @@ body{
   text-shadow: 1px 1px 20px red;
 }
 
-nav#navbar-scroll{
+nav #navbar-scroll{
   margin-bottom: 0;
   background: rgba(0,0,0,.6);
   border: none;
