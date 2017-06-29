@@ -25,8 +25,9 @@ session_start();
     "name" => $name,
     "price" => $price,
     "license" => $license
+    
   ];
-
+  return;
 }
 
 else {

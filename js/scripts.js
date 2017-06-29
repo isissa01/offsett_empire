@@ -349,7 +349,9 @@ else if($(event.target).parent().hasClass('song_price')){
     success: function(response){
       if (response !='no'){
         $cart = $('.cart_count');
-        $cart.text(parseInt($cart.text()) + 1);
+        count =parseInt($cart.html());
+        
+        $cart.text(count + 1);
       }
       
       
