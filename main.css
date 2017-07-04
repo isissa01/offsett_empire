@@ -16,7 +16,7 @@ body{
   justify-content: space-between;
 }
 .wrap{
-  margin: auto 0;
+  margin: 70px 0 auto 0;
 }
 #navbar-scroll {
   padding: 10px 0;
@@ -47,7 +47,7 @@ body{
   text-shadow: 1px 1px 20px red;
 }
 
-nav #navbar-scroll{
+nav#navbar-scroll{
   margin-bottom: 0;
   background: rgba(0,0,0,.6);
   border: none;
@@ -59,7 +59,7 @@ nav #navbar-scroll{
 .dropdown .dropdown-menu{
   padding: 10px;
   width: 300px;
-  background-color: #ddd;
+  background-color: rgba(0,0,0,1);
   color: black; 
     font-weight: bold;
 }
@@ -89,6 +89,7 @@ nav #navbar-scroll{
   margin-top: 0;
   padding-top: 0;
   font-weight: normal;
+  font-size: .9em;
 }
 
 
@@ -482,6 +483,14 @@ p.alert.alert-danger{
   text-shadow: none;
 }
 
+
+
+/*CART Page*/
+
+#cart{
+  background: #fff;
+  padding: 20px;
+}
 
 
 /*CMS Page*/

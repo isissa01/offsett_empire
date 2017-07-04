@@ -20,7 +20,7 @@ session_start();
       return;
     }
   }
-  $_SESSION['shopping_cart'][] = [
+  $_SESSION['shopping_cart'][$id] = [
     "id" => $id,
     "name" => $name,
     "price" => $price,
@@ -29,6 +29,19 @@ session_start();
   ];
   return;
 }
+else if(isset($_GET['delete_item'])){
+session_start();
+  $delete = mysqli_real_escape_string($connection, $_GET['delete_item']);
+  
+  unset($_SESSION['shopping_cart'][$delete]);
+  header("Location: cart.php");
+
+
+
+
+}
+
+
 
 else {
   
@@ -38,26 +51,87 @@ include 'header.php';}
         
 
         
-         <section id="contact">
-             <div class="container">
-               <h2>S<span class="red_underline">hopping Car</span>t</h2>
-                 <div class="row">
-                     <div class="col-md-8 col-md-offset-2">
-                     <?php 
-                       foreach($_SESSION['shopping_cart'] as $item){
-                         
-                       }
-                       
-                       
-                     ?> 
-                   </div>
-                 </div>
+         <section id="cart" class="container">
+             <div class="row">
+             <div class="col-md-8 cart-products">
+               <table class="table">
+               <thead>
+                 <tr>
+                   <th>Product</th>
+                   <th>License</th>
+                   <th>Price</th>
+                 </tr>
+               </thead>
+               <tbody> 
+                  
+                 <?php 
+                 $total = 0;
+                 foreach($_SESSION['shopping_cart'] as $item){
+                   $total += $item['price'];
+                  ?>
+                  
+                  <tr>
+                    <td><?php echo $item['name']; ?></td>
+                    <td><?php echo $item['license']; ?></td>
+                    <td><?php echo $item['price']; ?></td>
+                    <td><a href="cart.php?delete_item=<?php echo $item['id']; ?>" class="btn btn-primary">Delete</a></td>
+
+                  </tr>
+                  <?php } ?>
+  
+                 
+               </tbody>
+               
+             </table>
              </div>
+<!--              END Product Table        -->
+             
+             <div class="col-md-4 cart-summary">
+               
+               <h2>Cart Summary</h2>
+               <table class="table">
+                 <tbody>
+                   <tr>
+                     <td>Sub total</td>
+                     <td>$<?php echo $total ;?></td>
+                   </tr>
+                   <tr>
+                     <td>Total</td>
+                     <td>$<?php echo $total; ?></td>
+                   </tr>
+
+                 </tbody>
+               </table>
+               <a href="#" class="btn btn-default">Checkout</a>
+             </div>
+           </div>
          </section>
          
          
 
 </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
          
          
         

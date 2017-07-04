@@ -36,44 +36,7 @@
                      
                      
                      <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class=" fa fa-shopping-cart"></span> Cart (<span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span>)</a>
-                <ul class="dropdown-menu">
-                
-                <li><p>You have <span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span> items in your shopping cart</p></li>
-                
-                <?php 
-                  $total = 0;
-                  foreach($_SESSION['shopping_cart'] as $item){
-                    $total += $item['price'];
-                    
-                  ?>  
-                  
-                  
-                  
-                <li class='row cart-item'>
-                 <div class="col-xs-8">
-                   <p class='beat-name'><?php echo $item['name'];?></p>
-                  <p class='license'><?php echo $item['license'];?></p>
-                 </div>
-                  <div class="col-xs-4">
-                    <p class='item-price'><?php echo $item['price'];?></p>
-                  </div>
-                </li>                
-                <?php }?>
-                <li class="row">
-                  <div class="col-xs-6">
-                    <a class="btn btn-primary" href="cart.php">Checkout</a>
-                  </div>
-                  <div class="col-xs-6">
-                    <span class='total-price pull-right'><?php echo $total;?></span>
-                  </div>
-                </li>
-                  
-                
-                
-                
-                
-                </ul>
+                <a href="cart.php"><span class=" fa fa-shopping-cart"></span> Cart (<span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span>)</a>
               </li>
                      
                     
