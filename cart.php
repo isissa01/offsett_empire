@@ -106,7 +106,7 @@ include 'header.php';}
 
                  </tbody>
                </table>
-               <a href="#" class="btn btn-default">Checkout</a>
+               <a href="checkout.php" class="btn btn-default">Checkout</a>
              </div>
            </div>
          </section>

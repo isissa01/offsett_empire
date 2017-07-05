@@ -15,30 +15,36 @@ use PayPal\Api\Payment;
 if (empty($_SESSION['shopping_cart']) || !isset($_SESSION['shopping_cart'])){
   die();
 }
-$product = $_SESSION['shopping_cart'][0]['name'];
-$price = floatval($_SESSION['shopping_cart'][0]['price']);
+$items = [];
+$total = 0.00;
+foreach($_SESSION['shopping_cart'] as $song){
+  
+  $product = $song['name'];
+  $price = floatval($song['price']);
+  $total  += $price;
+  
+  $item = new Item();
+  $item->setName($product)
+    ->setCurrency('USD')
+    ->setQuantity(1)
+    ->setPrice($price);
+  $items[] = $item;
+}
 $shipping = 0.00;
-$total  = $price + $shipping;
 
 $payer = new Payer();
 $payer->setPaymentMethod('paypal');
 
-$item = new Item();
-$item->setName($product)
-  ->setCurrency('USD')
-  ->setQuantity(1)
-  ->setPrice($price);
-
 $itemList = new ItemList();
-$itemList->setItems([$item]);
+$itemList->setItems($items);
 
 $details = new Details();
 $details->setShipping($shipping)
-  ->setSubtotal($price);
+  ->setSubtotal($total);
 
 $amount = new Amount();
 $amount->setCurrency('USD')
-  ->setTotal($total)
+  ->setTotal($total + $shipping)
   ->setDetails($details);
 
 $trans = new Transaction();
