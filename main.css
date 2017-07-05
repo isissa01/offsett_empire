@@ -249,7 +249,9 @@ padding: 0;
   display: none;
 }
 */
-
+select{
+  color: black;
+}
 
 #playlist .cover{
   display: block;

@@ -52,7 +52,7 @@ include 'includes/db.php';
                 <th colspan="1" scope="col" class="time-header">time</th>
                 <th colspan="1" scope="col" class="bpm-header">bpm</th>
                 <th colspan="1" scope="col" class="tags-header">tags</th>
-<!--                <th colspan="1" scope="col" class="share-header">share</th>-->
+                <th colspan="1" scope="col" class="license-header">License</th>
                 <th colspan="1" scope="col" class="price-header">price</th>
               </tr>
              </thead>

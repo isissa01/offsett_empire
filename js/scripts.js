@@ -193,12 +193,6 @@ function initAudio(track){
     $('.cover-image').css('background-image', cover_image);
   
   
-  //    var cover_image = track.children('.cover').css('background-image').split('/');
-  
-//    let cover_string = cover_image[cover_image.length - 1];
-//    let end = cover_string.search('"');
-//    cover_string = cover_string.substr(0, end);
-//    console.log(cover_string);
     let tags = track.children('.song_tags').text();
     let tags_array = tags.split(',');
     $tags =$(".top-player .tags").html('');
@@ -209,19 +203,16 @@ function initAudio(track){
 
 
     songAudio = new Audio(song)
-//    songAudio.volume = parseFloat($(".volume").val() /10);
-
-    if(!songAudio.currentTime){
-        $(".duration").html("0:00");
-        $(".total_duration").html("0:00");
-    }
 
     $(".top-player .title").text(title);
 //    $(".active").removeClass("active");
 //    element.addClass("active");
 
 }
-
+//This function Add the songs to the table on the index
+//page it uses ajax to get the json data outputted from the
+//server and loops through it to create the table body for 
+//the playlist on the index page
 const getSongs= () =>{
   $.ajax({
     url : "includes/getSongs.php",
@@ -271,15 +262,17 @@ const getSongs= () =>{
 
 
       });
-//      let $share =$('<td class="song_share"><span class="fa fa-share-alt"></span></td>');
-      let $price = $('<td colspan="1" class="song_price">$24.99 <a data-id='+ song_id +' href="cart.php" class="add-btn"><span class="fa fa-shopping-cart"></span> ADD</a></td>');
+      let $license =$('<td class="song_license"><select class="license-select" name="licenses"><option value="MP3">Mp3 License</option><option value="WAV">WAV License</option><option value="Premium">Premium License</option><option value="Exclusive">Exclusive License</option></select></td>'); 
+      let $price = $('<td colspan="1" class="song_price">$<span class="price">24.99</span> <a data-id='+ song_id +' href="cart.php" class="add-btn"><span class="fa fa-shopping-cart"></span> ADD</a></td>');
 
-//      $row.append($share);
+      $row.append($license);
       $row.append($price);
       $playlist_table.append($row);
 
 
       });
+      
+          
       width_check();
       let $first = $(".playlist-table .track").first();
       initAudio($first);
@@ -292,9 +285,16 @@ const getSongs= () =>{
 });
 }
 
+//This checks to see if the page is the index page then 
+//runs the getSongs function which adds the songs to the page
+
 if ( location.pathname.endsWith('/index.php')  ||  location.pathname.endsWith('/')) {
   getSongs();
 }
+
+//Stores the User name and Password on the local storage so the 
+//user doesn't have to put their username and password everytime 
+//they want to sign in  if they click the remember me button
 
 if(location.pathname.includes('login.php')){
 
@@ -325,6 +325,33 @@ if(location.pathname.includes('login.php')){
   
 } 
 
+//This Checks if the Licence Was Changed and then Changes the Price Based on the Selection
+
+$('.playlist-table tbody').change(function(event){
+  let license = $(event.target).val();
+  let $track = $(event.target).parent().siblings('.song_price');
+  console.log($track);
+  let price = "24.99";
+  
+  switch(license){
+    case "MP3" :
+      price = "24.99";
+      break;
+    case "WAV":
+      price = "34.99";
+      break;
+    case "Premium":
+      price = "80.00";
+      break;
+    case "Exclusive":
+      price = "200.00";
+      break;
+                }
+  $track.children('.price').text(price);
+});
+
+
+
 
  //SELECTING WHICH SONG TO PLAY AND ADDING ITEMS TO CART
 $('.playlist-table tbody').click(function(event){
@@ -337,13 +364,17 @@ if($(event.target).parent().hasClass('track')){
 else if($(event.target).parent().hasClass('song_price')){
   let url = $(event.target).attr('href');
   let id= $(event.target).data('id');
-  let license = "MP3 License";
+  let price= $(event.target).siblings('.price').html();
+
+  let license =$(event.target).parent().siblings(".song_license").children(".license-select").val() + " License";
+  
+  // Sending the Ajax request to add the item to the cart
   $.ajax(url,{
     method : 'get',
     data : {
       add_cart: id,
       name: $(event.target).parent().siblings('.song_title').text(),
-      price: 24.99,
+      price: parseFloat(price),
       license: license
            },
     success: function(response){
