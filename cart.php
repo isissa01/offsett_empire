@@ -20,7 +20,7 @@ session_start();
       return;
     }
   }
-  $_SESSION['shopping_cart'][$id] = [
+  $_SESSION['shopping_cart'][] = [
     "id" => $id,
     "name" => $name,
     "price" => $price,
@@ -32,8 +32,12 @@ session_start();
 else if(isset($_GET['delete_item'])){
 session_start();
   $delete = mysqli_real_escape_string($connection, $_GET['delete_item']);
-  
-  unset($_SESSION['shopping_cart'][$delete]);
+  foreach($_SESSION['shopping_cart'] as $key => $item){
+    if ($item['id'] === $delete){
+      unset($_SESSION['shopping_cart'][$key]);
+    }
+  }
+  array_values($_SESSION['shopping_cart']);
   header("Location: cart.php");
 
 
