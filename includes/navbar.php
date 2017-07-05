@@ -25,17 +25,32 @@
                      ><a href="<?php echo $value['link'];?>"><?php echo $value['page'];?></a></li>
                      <?php } 
                      if(isset($_SESSION['logged_in'])){
-                       echo "<li><a href='logout.php'>Logout</a></li>";
-                       if($_SESSION['isAdmin'] == 1){
+                       ?>
+                       <li class="dropdown">
+                        <a class="toggle" id="userMenu" data-toggle="dropdown" aria-expanded="true">
+    User Menu
+                          <span class="caret"></span></a>
+                         <ul class="dropdown-menu">
+                           <li><a href="acount.php">Account</a></li>
+                           <li><a href="change_password.php">Change Password</a></li>
+                           <?php 
+                           if($_SESSION['isAdmin'] == 1){
                           echo "<li><a href='cms.php'>Admin</a></li>";
                         }
+                           ?>
+                            <li role="separator" class="divider"></li>
+                           <li><a href="logout.php">Logout</a></li>
+                         </ul>
+                         
+                       </li>
+                       <?php
                      }else {
                            echo "<li><a href='login.php'>Login</a></li>";                      
                      }
                      ?> 
                      
                      
-                     <li class="dropdown">
+                     <li>
                 <a href="cart.php"><span class=" fa fa-shopping-cart"></span> Cart (<span class='cart_count'><?php echo count($_SESSION['shopping_cart']);?></span>)</a>
               </li>
                      

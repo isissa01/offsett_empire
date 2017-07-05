@@ -45,7 +45,10 @@ session_start();
 
 }
 
-
+else if(isset($_GET['success'])){
+  echo "Your beats have been sent to your Email with their licenses.";
+  header("Location: index.php");
+}
 
 else {
   

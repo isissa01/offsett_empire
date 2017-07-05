@@ -59,7 +59,14 @@ function login($username, $password){
       $_SESSION[$key] = $value;
       
     }
-    header('Location: index.php');
+     
+     if(isset($_GET['checkout'])){
+       header('Location: checkout.php');
+     }
+     else {
+       header('Location: index.php');
+     }
+    
 
    }
    

@@ -1,5 +1,6 @@
 <?php 
-
+include 'includes/db.php';
+session_start();
 require "app/start.php";
 
 
@@ -7,10 +8,15 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 
 
-if (!isset($_GET['success'], $_GET['paymentId'], $_GET['PayerID'])){
+if (!isset($_GET['success'])){
   die();
 }
-if((bool) $_GET['success'] === false){
+
+if($_GET['success'] === "false" || $_GET['success'] === ""){
+  header("Location: cart.php?failed");
+  die();
+}
+if(!isset($_GET['paymentId'], $_GET['PayerID'])){
   die();
 }
 
@@ -30,4 +36,26 @@ try{
   die($e);
 }
 
-echo "Payment made. The Transaction was Successful";
+
+foreach($_SESSION['shopping_cart'] as $song){
+  
+  $beat_id  = $song['id'];
+  $beat_name  = $song['name'];
+  $license  = $song['license'];
+  $price  = $song['price'];
+  
+  $query = "INSERT INTO transaction (beat_id, beat_name, license, payerId, paymentId, price) ";
+  $query .= "VALUES ('{$beat_id}', '{$beat_name}', '{$license}', '{$payerId}', '{$paymentId}', '{$price}')";
+  
+  $result = mysqli_query($connection, $query);
+  if(!$result){
+    die(mysqli_error($connection));
+  }
+  
+
+  
+}
+
+$_SESSION["shopping_cart"] = [];
+
+header('Location: cart.php?success=true');
