@@ -9,32 +9,7 @@ if(!isset($_SESSION['logged_in'])){
 
 ?>
 
-         
-         <?php 
-  if (isset($_POST['current_password'])){
-  $current_password = $_POST['current_password'];
-  $new_password = $_POST['new_password'];
-  $confirm_password = $_POST['confirm_password'];
-  
-  $current_password= mysqli_real_escape_string($connection, $current_password);
-  $new_password= mysqli_real_escape_string($connection, $new_password);
-  $confirm_password= mysqli_real_escape_string($connection, $confirm_password);
 
-  
-//  $salt = 'ilovemywifeaminabutsheplaywaytoomuch1770420';
-//  $hash = '$2a$10$';
-//  $password = crypt($password, $hash . $salt);
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT , ['cost' => 15]);
-      if(!$password){
-    $errors[] = "Password Cannot Not Be Empty!";
-  } else {
-        
-        $errors = signup($username, $hashed_password, $email);
-      }
-    }
-
-  
-  ?>
  
 <div class="wrap">
          <section id="contact">
@@ -87,8 +62,6 @@ if(!isset($_SESSION['logged_in'])){
          
 
 </div>
-         
-         
-        
+
        
-  <?php  include 'footer.php';?>
+<?php  include 'footer.php';?>
