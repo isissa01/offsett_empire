@@ -128,10 +128,10 @@ $('.form').submit((event)=>{
   
   
 // Scroll to the top
-
-$('.close').click(function(){
-  $(this).parent().slideUp();
-});
+//
+//$('.close').click(function(){
+//  $(this).parent().slideUp();
+//});
 
 
 $(document).on("click","#back_to_top",function(e){
@@ -415,6 +415,31 @@ function play(){
 
 
 
+
+//License Page Modal 
+//Making the modal show different License Information Depending On the License Clicked
+
+
+$('#licenses button[data-toggle="modal"]').click(function(){
+  
+  let id = parseInt($(this).data('id'));
+  console.log(id);
+  let url = 'includes/license_template.php';
+  let data = {
+    id : id
+  }
+  
+  $.post(url, data, function(response){
+    response = JSON.parse(response);
+
+    
+    
+    $('#licenseModal .modal-title').html(response.type + ' License');
+    $('#licenseModal .modal-body').html(response.content);
+    
+    
+  });
+});
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 12, 2017 at 01:29 AM
+-- Generation Time: Jul 07, 2017 at 02:11 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -66,8 +66,8 @@ CREATE TABLE `music_posts` (
 --
 
 INSERT INTO `music_posts` (`id`, `song_name`, `song_artist`, `song_url`, `song_content`) VALUES
-(1, 'To The Top', 'Young Mali', 'yaOlHQc1y1g\r\n', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum asperiores dolor eos aspernatur modi, consectetur inventore sit quo perferendis, nesciunt omnis libero similique quos perspiciatis impedit porro corrupti eum ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quos provident aliquid nulla officiis quam recusandae nisi iure quod blanditiis. Dolorem possimus sint similique, ex vitae a reprehenderit unde aut!'),
-(2, 'Solo', 'Young Mali', 'YjynwBAf3SI', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolorem natus maiores asperiores dicta nemo alias eum, hic inventore tenetur! Molestias labore iste impedit laborum laboriosam at ipsam quis ab. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure officiis assumenda porro libero alias excepturi, sit ipsam ab laudantium maxime praesentium repellat velit corporis aut est repudiandae, quod. Sint, earum.');
+(1, 'To The Top', 'Young Mali', 'yaOlHQc1y1g', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum asperiores dolor eos aspernatur modi, consectetur inventore sit quo perferendis, nesciunt omnis libero similique quos perspiciatis impedit porro corrupti eum ullam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quos provident aliquid nulla officiis quam recusandae nisi iure quod blanditiis. Dolorem possimus sint similique, ex vitae a reprehenderit unde aut!'),
+(2, 'Solo money', 'Young Mali', 'YjynwBAf3SI', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolorem natus maiores asperiores dicta nemo alias eum, hic inventore tenetur! Molestias labore iste impedit laborum laboriosam at ipsam quis ab.');
 
 -- --------------------------------------------------------
 
@@ -94,6 +94,36 @@ INSERT INTO `navbar` (`id`, `page`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id` int(11) NOT NULL,
+  `beat_id` int(11) NOT NULL,
+  `beat_name` varchar(255) NOT NULL,
+  `license` varchar(255) NOT NULL,
+  `payerId` varchar(255) NOT NULL,
+  `paymentId` varchar(255) NOT NULL,
+  `price` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id`, `beat_id`, `beat_name`, `license`, `payerId`, `paymentId`, `price`) VALUES
+(5, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-8SU36777AD893743PLFOWP2I', '24.99'),
+(6, 2, 'Young Stream', 'Premium License', 'XVVCP7FVAACHJ', 'PAY-8SU36777AD893743PLFOWP2I', '80'),
+(7, 2, 'Young Stream', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-83S773543P948174RLFOWTEA', '24.99'),
+(8, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-83S773543P948174RLFOWTEA', '24.99'),
+(9, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-1YE88583UE1599217LFOXACI', '24.99'),
+(10, 1, 'Lovely Town', 'WAV License', 'XVVCP7FVAACHJ', 'PAY-6GM69101M7932434ELFOXUDY', '34.99'),
+(11, 2, 'Young Stream', 'Exclusive License', 'XVVCP7FVAACHJ', 'PAY-6GM69101M7932434ELFOXUDY', '200'),
+(12, 3, 'Dreams', 'Exclusive License', 'XVVCP7FVAACHJ', 'PAY-7WX06328CM808532LLFOX62I', '200');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -110,7 +140,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `isAdmin`) VALUES
-(1, 'isissa01', 'isissa01@gmail.com', '$2y$15$6kD1hl0rfc8ivK.IheBGeekmgQfN8XBf6/A03RpiL802EklrBy8IC', 0);
+(1, 'isissa01', 'isissa01@gmail.com', '$2y$15$6kD1hl0rfc8ivK.IheBGeekmgQfN8XBf6/A03RpiL802EklrBy8IC', 1),
+(4, 'musa01', 'musa01@gmail.com', '$2y$15$op7vUFRyTDlBp9pkg4wrDuX/fNGN4QGaK.Hjb.q0O0eINhmd58zcS', 0),
+(5, 'admin', 'admin01@gmail.com', '$2y$15$0z5JRZpsuc82fSKS3BGLte7.1IZfIQujBYYkYmKV5uWlVV2QHH8Pq', 0);
 
 --
 -- Indexes for dumped tables
@@ -135,6 +167,12 @@ ALTER TABLE `navbar`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -153,17 +191,22 @@ ALTER TABLE `beats`
 -- AUTO_INCREMENT for table `music_posts`
 --
 ALTER TABLE `music_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `navbar`
 --
 ALTER TABLE `navbar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

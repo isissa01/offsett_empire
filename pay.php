@@ -1,5 +1,6 @@
-<?php 
+<?php
 include 'includes/db.php';
+include 'includes/functions.php';
 session_start();
 require "app/start.php";
 
@@ -8,15 +9,8 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 
 
-if (!isset($_GET['success'])){
-  die();
-}
-
-if($_GET['success'] === "false" || $_GET['success'] === ""){
-  header("Location: cart.php?failed");
-  die();
-}
-if(!isset($_GET['paymentId'], $_GET['PayerID'])){
+if (!isset($_GET['success'],$_GET['paymentId'], $_GET['PayerID']) || $_GET['success'] === "false" || $_GET['success'] === ""){
+  header("Location:cart.php?failed");
   die();
 }
 
@@ -36,26 +30,28 @@ try{
   die($e);
 }
 
-
+date_default_timezone_set('America/New_York');
+$time = date('M d Y h:i:sa');
+$buyer_id = $_SESSION['id'];
 foreach($_SESSION['shopping_cart'] as $song){
-  
+
   $beat_id  = $song['id'];
   $beat_name  = $song['name'];
   $license  = $song['license'];
   $price  = $song['price'];
-  
-  $query = "INSERT INTO transaction (beat_id, beat_name, license, payerId, paymentId, price) ";
-  $query .= "VALUES ('{$beat_id}', '{$beat_name}', '{$license}', '{$payerId}', '{$paymentId}', '{$price}')";
-  
+
+  $query = "INSERT INTO transaction (beat_id, buyer_id, beat_name, license, payerId, paymentId, price, created_time) ";
+  $query .= "VALUES ('{$beat_id}', '{$buyer_id}', '{$beat_name}', '{$license}', '{$payerId}', '{$paymentId}', '{$price}', NOW())";
+
   $result = mysqli_query($connection, $query);
   if(!$result){
     die(mysqli_error($connection));
   }
-  
 
-  
+
+
 }
-
+emailbeat();
 $_SESSION["shopping_cart"] = [];
 
-header('Location: cart.php?success=true');
+header('Location: account.php');

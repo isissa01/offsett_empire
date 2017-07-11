@@ -1,4 +1,4 @@
-<?php 
+<?php
 include 'includes/db.php';
 
 ?>
@@ -19,7 +19,7 @@ include 'includes/db.php';
 
             </div>
         </div>
-         
+
        </div>
       <div class="jumbotron" id="player">
         <div class="container">
@@ -28,7 +28,7 @@ include 'includes/db.php';
              <div class="cover-image">
               <button class="play-pause"><span class="fa fa-play play"></span><span class="fa fa-pause pause"></span></button>
                <img class="" src="" alt="">
-               
+
              </div>
              <div class="details">
                <div class="title">No One</div>
@@ -41,7 +41,7 @@ include 'includes/db.php';
              </ul>
              <button class="btn btn-md add-to-cart"><span class="fa fa-shopping-cart"></span> Add To Cart</button>
              </div>
-             
+
            </div>
             <div class="jumbo-area" id="playlist">
               <h3>Playlist</h3>
@@ -57,16 +57,16 @@ include 'includes/db.php';
               </tr>
              </thead>
              <tbody>
-            
+
              </tbody>
-            
+
             </table>
 
             </div>
         </div>
-         
+
        </div>
-              
+
        <section id="about" >
          <div class="container">
            <h2>About Us</h2>
@@ -88,9 +88,8 @@ include 'includes/db.php';
              </div>
            </div>
          </div>
-          
        </section>
-   
+
 
 
 

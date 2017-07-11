@@ -1,14 +1,19 @@
 <?php
 include 'db.php';
 
+function emailBeats(){
+
+}
+
+
 function signup($username, $password, $email){
   global $connection;
   $errors =[];
-  
 
-  
+
+
   $query = "SELECT * FROM users WHERE email = '$email' OR username ='$username'";
-  
+
   $result = mysqli_query($connection, $query);
   if (mysqli_num_rows($result) == 0){
     $signup_query = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
@@ -18,11 +23,11 @@ function signup($username, $password, $email){
     }
     else {
       return 'done';
-      
+
     }
   }
-  
-  
+
+
   while($row = mysqli_fetch_assoc($result)){
     if ($row['username'] == $username){
       $errors[] = 'Username is aleady Taken';
@@ -43,33 +48,33 @@ function login($username, $password){
     return $error;
   }
   while($row = mysqli_fetch_assoc($result)){
-  
+
     $cred = array(
       'hashed_password' => $row['password'],
       'id'              => $row['id'],
       'isAdmin'         => $row['isAdmin'],
       'email'           => $row['email'],
-    
-    
+
+
     );
-    
+
    if(password_verify($password, $cred['hashed_password'])){
       $_SESSION['logged_in'] = true;
       foreach($cred as $key => $value){
       $_SESSION[$key] = $value;
-      
+
     }
-     
+
      if(isset($_GET['checkout'])){
        header('Location: checkout.php');
      }
      else {
        header('Location: index.php');
      }
-    
+
 
    }
-   
+
   }
 
 }
@@ -83,7 +88,7 @@ function getSongs(){
   }
   $songs = [];
   while($row = mysqli_fetch_assoc($result)){
-  
+
     $song = array(
       'id' => $row['id'],
       'song_title' => $row['name'],
@@ -91,12 +96,12 @@ function getSongs(){
       'song_bpm' => $row['bpm'],
       'song_tags' => $row['tags'],
       'cover' => $row['cover_image'],
-    
+
     );
     $songs[] = $song;
-    
+
   }
-  
+
   echo json_encode($songs);
 }
 
@@ -109,16 +114,16 @@ function getNavbar(){
   }
   $songs = [];
   while($row = mysqli_fetch_assoc($result)){
-  
+
     $page = array(
       'page' => $row['page'],
       'link' => $row['link']
     );
     $pages[] = $page;
-    
+
   }
   return $pages;
-  
+
 }
 
 function sendMail($from, $name, $message){
@@ -126,10 +131,10 @@ function sendMail($from, $name, $message){
   $subject = $name . ' Has A Question';
   $to = 'offsettempire0fficial@gmail.com';
   mail($to, $subject, $message, $from);
-  
+
 }
 
 function addBeat($beat_array){
-  
+
   $query = "INSERT INTO beats(name, filename, cover_image, bpm, tags) VALUES ('". $beat_array['name'] ."')";
 }

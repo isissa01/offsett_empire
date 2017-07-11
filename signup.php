@@ -51,7 +51,7 @@ if(isset($_SESSION['logged_in'])){
 
                        foreach($errors as $key => $error){
                        ?>
-                       <p class ='alert alert-danger'><?php echo $error;?><span class='close'>X</span></p>
+                       <p class ='alert alert-danger'><?php echo $error;?><span class="close" data-dismiss='alert'>&times;</span></p>
                        <?php  
                        }}
                        ?>
@@ -84,12 +84,11 @@ if(isset($_SESSION['logged_in'])){
               <label  for="#remember">Remember Me</label>
             </div>
             
-            <input type="submit" value="Login" class="btn btn-danger btn-lg pull-right">
+            <input type="submit" value="Sign Up" class="btn btn-danger btn-lg pull-right">
             
           </form>
-          <p id='forgot-password'><a  href="forgot.php">Forgot your username or password?</a></p>
           
-          <p><span class="signup">Not a memember </span><a href="signup.php" class="red">Sign Up Now</a></p>
+          <p><span class="signup">Already Signed Up </span><a href="login.php" class="red">Log In Now</a></p>
           </div>
                  </div>
              </div>

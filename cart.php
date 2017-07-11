@@ -1,19 +1,19 @@
 <?php
 
- 
+
 
 
 include 'includes/db.php';
 
 if(isset($_GET['add_cart'])){
 session_start();
-  
+
 
   $id = $_GET['add_cart'];
   $name = $_GET['name'];
   $price= $_GET['price'];
   $license= $_GET['license'];
-  
+
   foreach($_SESSION['shopping_cart'] as $item){
     if($item['id'] === $id ) {
       echo 'no';
@@ -25,7 +25,7 @@ session_start();
     "name" => $name,
     "price" => $price,
     "license" => $license
-    
+
   ];
   return;
 }
@@ -45,19 +45,14 @@ session_start();
 
 }
 
-else if(isset($_GET['success'])){
-  echo "Your beats have been sent to your Email with their licenses.";
-  header("Location: index.php");
-}
-
 else {
-  
+
 include 'header.php';}
   ?>
 <div class="wrap">
-        
 
-        
+
+
          <section id="cart" class="container">
              <div class="row">
              <div class="col-md-8 cart-products">
@@ -69,14 +64,14 @@ include 'header.php';}
                    <th>Price</th>
                  </tr>
                </thead>
-               <tbody> 
-                  
-                 <?php 
+               <tbody>
+
+                 <?php
                  $total = 0;
                  foreach($_SESSION['shopping_cart'] as $item){
                    $total += $item['price'];
                   ?>
-                  
+
                   <tr>
                     <td><?php echo $item['name']; ?></td>
                     <td><?php echo $item['license']; ?></td>
@@ -85,16 +80,16 @@ include 'header.php';}
 
                   </tr>
                   <?php } ?>
-  
-                 
+
+
                </tbody>
-               
+
              </table>
              </div>
 <!--              END Product Table        -->
-             
+
              <div class="col-md-4 cart-summary">
-               
+
                <h2>Cart Summary</h2>
                <table class="table">
                  <tbody>
@@ -113,34 +108,34 @@ include 'header.php';}
              </div>
            </div>
          </section>
-         
-         
+
+
 
 </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-         
-         
-        
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <?php  include 'footer.php';?>
