@@ -34,18 +34,22 @@ foreach($result as $row){
   $num_mon_video = $row['num_mon_videos'];
   $num_radio = $row['radio_stations'];
   $years_active = $row['years_active'];
-  
-  
+
+
   $response['type'] = $license_name;
 }
-
+$beat_name = 'DEMO';
 
 
 $zone = new DateTimeZone('America/New_York');
-$date = date_create_from_format('Y-m-d H:i:s', '2017-07-06 20:45:21', $zone);
+
+date_default_timezone_set('America/New_York');
+$date = new DateTime();
+
+
+//$date = date_create_from_format('Y-m-d H:i:s','now', $zone);
 
 $time =  $date->format(' D,  M d Y H:i:s P');
-
 
 
 
@@ -85,4 +89,3 @@ $response['content'] = $license_temp;
 
 
  echo json_encode($response);
-

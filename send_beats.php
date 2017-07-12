@@ -89,7 +89,7 @@ if(!$mail->Send()){
 else{
   echo "Success Message Sent Succesfully";
   $_SESSION["shopping_cart"] = [];
-//  header("location: account.php?success");
+  header("location: account.php?success");
 
 }
 ?>

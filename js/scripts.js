@@ -21,13 +21,13 @@ for(let i=0; i<parent.length; i++ ){
     return false;
 
     }
-  
+
   parent[i].ondragexit = (ev) =>{
     $(parent[i].querySelector('input')).show();
     $(parent[i].querySelector('.dragover')).hide();
     return false;
   }
-  
+
     parent[i].ondrop =  function(event){
     $(parent[i].querySelector('.dragover')).hide();
       div= $('<div>');
@@ -36,9 +36,9 @@ for(let i=0; i<parent.length; i++ ){
 
       $parent.children('.file').remove();
      let file= event.dataTransfer.files[0]
-     
+
       if(parent[i].className.includes('cover')){
-        
+
         if(file.type.split('/')[0] =='image'){
           beatFiles['cover'] = file;
            $parent.append(div);
@@ -62,7 +62,7 @@ for(let i=0; i<parent.length; i++ ){
         }
 
       }
-      return false;    
+      return false;
     }
 
 }
@@ -71,11 +71,11 @@ for(let i=0; i<parent.length; i++ ){
 
 
 
-  
 
 
 
-  
+
+
 $('.form').submit((event)=>{
   event.preventDefault();
   let input = document.querySelector('#beat').files[0];
@@ -92,12 +92,12 @@ $('.form').submit((event)=>{
     bpm   : bpm,
     tags  : tags
   };
-  
+
   let formD = new FormData();
   $.each(data ,(key, value) =>{
     formD.append(key, value);
   });
-  
+
   $.ajax({
     processData: false,
     contentType: false,
@@ -110,23 +110,23 @@ $('.form').submit((event)=>{
 }).done(function(){
     console.log("Done");
   });
-  
-  
-  
-});  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Scroll to the top
 $(document).on("click","#back_to_top",function(e){
     e.preventDefault();
@@ -136,24 +136,24 @@ $(document).on("click","#back_to_top",function(e){
 
 const $win = $(window);
 const width_check = ()=>{
-  
+
   if($win.width() < 683){
-    
+
     $('.add-to-cart').removeClass("pull-right");
   }
   else if($win.width() < 769){
-    $('.tags').removeClass("pull-left"); 
+    $('.tags').removeClass("pull-left");
     $('.add-to-cart').addClass("pull-right");
 
-    
-    
-    
+
+
+
   }
-  
+
   else{
-    
+
      $('.tags').addClass("pull-left");
-     
+
   }
   if($win.width() > 991){
     $('.title-header').attr('colspan', "2");
@@ -161,7 +161,7 @@ const width_check = ()=>{
   else{
     $('.title-header').attr('colspan', "1");
   }
-  
+
 }
 $(document).ready(width_check);
 $win.resize(width_check);
@@ -175,8 +175,8 @@ function initAudio(track){
     let title = track.children('.song_title').text();
     let cover_image = track.children('.cover').css('background-image');
     $('.cover-image').css('background-image', cover_image);
-  
-  
+
+
     let tags = track.children('.song_tags').text();
     let tags_array = tags.split(',');
     $tags =$(".top-player .tags").html('');
@@ -184,7 +184,7 @@ function initAudio(track){
       let $tag = $('<li class="tag"></li>').text('#' + tag_string);
       $tags.append($tag);
     });
-  
+
     songAudio = new Audio(song)
 
     $(".top-player .title").text(title);
@@ -194,7 +194,7 @@ function initAudio(track){
 }
 //This function Add the songs to the table on the index
 //page it uses ajax to get the json data outputted from the
-//server and loops through it to create the table body for 
+//server and loops through it to create the table body for
 //the playlist on the index page
 const getSongs= () =>{
   $.ajax({
@@ -209,7 +209,7 @@ const getSongs= () =>{
       let song_id = 0;
       $.each(song, function(key, value){
         let $col = $("<td></td>");
-        
+
         if(key === 'id'){
           song_id = value;
         }
@@ -236,20 +236,20 @@ const getSongs= () =>{
         else if(key === "cover"){
 
           $col.css('background-image', "url(" + value + ")").addClass('cover  hidden-xs hidden-sm');
-          $row.prepend($col);      
+          $row.prepend($col);
         }
-      
+
         else{
             if(key === 'song_tags' || key === 'song_bpm'){
                $col.addClass("hidden-xs hidden-sm");
-               }    
+               }
           $col.addClass(key).text(value);
           $row.append($col);
         }
 
 
       });
-      let $license =$('<td class="song_license"><select class="license-select" name="licenses"><option value="MP3">Mp3 License</option><option value="WAV">WAV License</option><option value="Premium">Premium License</option><option value="Unlimited">Unlimited License</option></select></td>'); 
+      let $license =$('<td class="song_license"><select class="license-select" name="licenses"><option value="MP3">Mp3 License</option><option value="WAV">WAV License</option><option value="Premium">Premium License</option><option value="Unlimited">Unlimited License</option></select></td>');
       let $price = $('<td colspan="1" class="song_price">$<span class="price">24.99</span> <a data-id='+ song_id +' href="cart.php" class="add-btn"><span class="fa fa-shopping-cart"></span> ADD</a></td>');
 
       $row.append($license);
@@ -258,8 +258,8 @@ const getSongs= () =>{
 
 
       });
-      
-          
+
+
       width_check();
       let $first = $(".playlist-table .track").first();
       $first.addClass("active");
@@ -278,15 +278,15 @@ const getSongs= () =>{
 });
 }
 
-//This checks to see if the page is the index page then 
+//This checks to see if the page is the index page then
 //runs the getSongs function which adds the songs to the page
 
 if ( location.pathname.endsWith('/index.php')  ||  location.pathname.endsWith('/')) {
   getSongs();
 }
 
-//Stores the User name and Password on the local storage so the 
-//user doesn't have to put their username and password everytime 
+//Stores the User name and Password on the local storage so the
+//user doesn't have to put their username and password everytime
 //they want to sign in  if they click the remember me button
 
 if(location.pathname.includes('login.php')){
@@ -315,8 +315,8 @@ if(location.pathname.includes('login.php')){
         }
       $('form').submit();
     });
-  
-} 
+
+}
 
 //This Checks if the Licence Was Changed and then Changes the Price Based on the Selection
 
@@ -325,7 +325,7 @@ $('.playlist-table tbody').change(function(event){
   let $track = $(event.target).parent().siblings('.song_price');
   console.log($track);
   let price = "24.99";
-  
+
   switch(license){
     case "MP3" :
       price = "24.99";
@@ -354,8 +354,8 @@ if($(event.target).parent().hasClass('track')){
   $track = $(event.target).parent();
   $(".track").removeClass("active");
   $track.addClass('active');
-  
-  
+
+
   initAudio($track);
   play();
 }
@@ -365,7 +365,7 @@ else if($(event.target).parent().hasClass('song_price')){
   let price= $(event.target).siblings('.price').html();
 
   let license =$(event.target).parent().siblings(".song_license").children(".license-select").val();
-  
+
   // Sending the Ajax request to add the item to the cart
   $.ajax(url,{
     method : 'get',
@@ -379,11 +379,11 @@ else if($(event.target).parent().hasClass('song_price')){
       if (response !='no'){
         $cart = $('.cart_count');
         count =parseInt($cart.html());
-        
+
         $cart.text(count + 1);
       }
-      
-      
+
+
     }
   });
 }
@@ -403,7 +403,7 @@ $(".pause").hide();
 
 function play(){
   songAudio.play();
-  
+
   $(".play").hide();
   $(".pause").show();
 //  $(".duration").fadeIn(300);
@@ -414,7 +414,7 @@ function next(){
   songAudio.pause();
   var next = $('.track.active').next();
   $(".track").removeClass("active");
- 
+
   if (next.length==0){
     next = $("tbody .track:first-child");
   }
@@ -426,48 +426,27 @@ function next(){
 
 
 
-//License Page Modal 
+//License Page Modal
 //Making the modal show different License Information Depending On the License Clicked
 
 
 $('#licenses button[data-toggle="modal"]').click(function(){
-  
+
   let id = parseInt($(this).data('id'));
   console.log(id);
   let url = 'includes/license_template.php';
   let data = {
     id : id
   }
-  
+
   $.post(url, data, function(response){
     response = JSON.parse(response);
 
-    
-    
-    $('#licenseModal .modal-title').html(response.type + ' License');
+
+
+    $('#licenseModal .modal-title').html(response.type.toUpperCase() + ' License');
     $('#licenseModal .modal-body').html(response.content);
-    
-    
+
+
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
