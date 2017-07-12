@@ -433,6 +433,10 @@ img{
   
 }
 
+#contact .alert {
+  text-shadow: none;
+}
+
 #contact form{
   text-align: left;
 }

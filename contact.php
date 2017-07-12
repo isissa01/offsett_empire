@@ -29,7 +29,6 @@ if (isset($_POST['name'])){
   $mail->AddAddress( 'isissa01@gmail.com' );
  
   if(!$mail->Send()){
-     echo "Error Message Did not Send!! " . $mail->ErrorInfo;
     header('location: contact.php?failed');
 
   }
@@ -40,7 +39,12 @@ if (isset($_POST['name'])){
   }
 }
 
-
+if (isset($_GET['success'])){
+  $message = '<p class="alert alert-success">Message Sent Successfully.<span class="close" data-dismiss="alert">&times;</span></p>';
+}
+else if (isset($_GET['failed'])){
+  $message = '<p class="alert alert-danger">Message was unable to be sent try again later.<span class="close" data-dismiss="alert">&times;</span></p>';
+}
 ?>
  
 
@@ -49,7 +53,7 @@ if (isset($_POST['name'])){
                <h2>G<span class="red_underline">ET IN TOUC</span>H</h2>
                  <div class="row">
                      <div class="col-md-8 col-md-offset-2">
-                        <p class="alert alert-success"><?php if(isset($_GET['success'])) echo "Message Sent Successfully."; ?><span class="close" data-dismiss='alert'>&times;</span></p>
+                        <?php if (isset($message)) echo $message;?>
                          <form action="" method="post" class="clearfix">
                             <div class="row">
                                 <div class="col-md-6">
