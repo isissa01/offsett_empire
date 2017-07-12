@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 07, 2017 at 02:11 AM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Generation Time: Jul 12, 2017 at 05:52 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -46,6 +46,37 @@ INSERT INTO `beats` (`id`, `name`, `filename`, `cover_image`, `bpm`, `tags`) VAL
 (2, 'Young Stream', 'media/stream1.mp3', 'images/pexels5.jpeg', 140, 'Trap, Hip Hop, Dj Foreign, Chris Brown'),
 (3, 'Dreams', 'media/325788_808_mafia.mp3', 'images/2333128_fullsizerender.jpg', 140, 'Trap, 808 Mafia, Southside'),
 (4, 'Lovely Lown', 'media/1598106_lovely_town_beat.mp3', 'images/2762341_lwscreenshot_2017-02-28_at_8.07.43_am.png', 93, 'Trap, Lil Yatchy, Metro Booming');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `licenses`
+--
+
+CREATE TABLE `licenses` (
+  `id` int(11) NOT NULL,
+  `license_name` varchar(255) NOT NULL,
+  `num_sales` varchar(255) NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `num_downloads` varchar(255) NOT NULL,
+  `num_streams` varchar(255) NOT NULL,
+  `isProfitable` tinyint(1) NOT NULL,
+  `num_performances` varchar(255) NOT NULL,
+  `num_videos` varchar(255) NOT NULL,
+  `num_mon_videos` varchar(255) NOT NULL,
+  `radio_stations` varchar(255) NOT NULL,
+  `years_active` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `licenses`
+--
+
+INSERT INTO `licenses` (`id`, `license_name`, `num_sales`, `price`, `num_downloads`, `num_streams`, `isProfitable`, `num_performances`, `num_videos`, `num_mon_videos`, `radio_stations`, `years_active`) VALUES
+(1, 'mp3', '5000', '24.99', '10000', '50000', 0, '5000', '0', '0', '0', 10),
+(2, 'wav', '10000', '39.99', '50000', '100000', 0, '50000', '1', '1', '1', 10),
+(3, 'premium', '50000', '80.00', '100000', '500000', 1, '100000', '2', '2', '3', 15),
+(4, 'unlimited', 'unlimited', '199.98', 'unlimited', 'unlimited', 1, 'unlimited', 'unlimited', 'unlimited', 'unlimited', 15);
 
 -- --------------------------------------------------------
 
@@ -100,26 +131,22 @@ INSERT INTO `navbar` (`id`, `page`, `link`) VALUES
 CREATE TABLE `transaction` (
   `id` int(11) NOT NULL,
   `beat_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
   `beat_name` varchar(255) NOT NULL,
   `license` varchar(255) NOT NULL,
   `payerId` varchar(255) NOT NULL,
   `paymentId` varchar(255) NOT NULL,
-  `price` varchar(5) NOT NULL
+  `price` varchar(5) NOT NULL,
+  `created_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`id`, `beat_id`, `beat_name`, `license`, `payerId`, `paymentId`, `price`) VALUES
-(5, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-8SU36777AD893743PLFOWP2I', '24.99'),
-(6, 2, 'Young Stream', 'Premium License', 'XVVCP7FVAACHJ', 'PAY-8SU36777AD893743PLFOWP2I', '80'),
-(7, 2, 'Young Stream', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-83S773543P948174RLFOWTEA', '24.99'),
-(8, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-83S773543P948174RLFOWTEA', '24.99'),
-(9, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-1YE88583UE1599217LFOXACI', '24.99'),
-(10, 1, 'Lovely Town', 'WAV License', 'XVVCP7FVAACHJ', 'PAY-6GM69101M7932434ELFOXUDY', '34.99'),
-(11, 2, 'Young Stream', 'Exclusive License', 'XVVCP7FVAACHJ', 'PAY-6GM69101M7932434ELFOXUDY', '200'),
-(12, 3, 'Dreams', 'Exclusive License', 'XVVCP7FVAACHJ', 'PAY-7WX06328CM808532LLFOX62I', '200');
+INSERT INTO `transaction` (`id`, `beat_id`, `buyer_id`, `beat_name`, `license`, `payerId`, `paymentId`, `price`, `created_time`) VALUES
+(15, 1, 1, 'Lovely Town', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-81T64399X93329936LFPNTEI', '24.99', '2017-07-06 20:45:21'),
+(16, 2, 1, 'Young Stream', 'MP3 License', 'XVVCP7FVAACHJ', 'PAY-81T64399X93329936LFPNTEI', '24.99', '2017-07-06 20:45:21');
 
 -- --------------------------------------------------------
 
@@ -132,6 +159,8 @@ CREATE TABLE `users` (
   `username` varchar(256) NOT NULL,
   `email` varchar(256) NOT NULL,
   `password` varchar(256) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `stage_name` varchar(255) DEFAULT NULL,
   `isAdmin` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -139,10 +168,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `isAdmin`) VALUES
-(1, 'isissa01', 'isissa01@gmail.com', '$2y$15$6kD1hl0rfc8ivK.IheBGeekmgQfN8XBf6/A03RpiL802EklrBy8IC', 1),
-(4, 'musa01', 'musa01@gmail.com', '$2y$15$op7vUFRyTDlBp9pkg4wrDuX/fNGN4QGaK.Hjb.q0O0eINhmd58zcS', 0),
-(5, 'admin', 'admin01@gmail.com', '$2y$15$0z5JRZpsuc82fSKS3BGLte7.1IZfIQujBYYkYmKV5uWlVV2QHH8Pq', 0);
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `name`, `stage_name`, `isAdmin`) VALUES
+(1, 'isissa01', 'isissa01@gmail.com', '$2y$15$HZDa.TEi/uGoROcoBQhGfuYEUgRvBtNYRINr9iw6IKunjYf1oABLy', 'Issa Issa', 'Issa Famous', 1),
+(5, 'admin', 'admin01@gmail.com', '$2y$15$0z5JRZpsuc82fSKS3BGLte7.1IZfIQujBYYkYmKV5uWlVV2QHH8Pq', '', NULL, 0),
+(7, 'musa01', 'musa01@gmail.com', '$2y$15$shyEo8.v8.qE35OkAqixCeWngi7rAtHc1yJn8GdAkAcjtxzaDlgom', 'Musa Issa', 'Young Fly', 0);
 
 --
 -- Indexes for dumped tables
@@ -152,6 +181,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `isAdmin`) VALUES
 -- Indexes for table `beats`
 --
 ALTER TABLE `beats`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `licenses`
+--
+ALTER TABLE `licenses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -188,6 +223,11 @@ ALTER TABLE `users`
 ALTER TABLE `beats`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `licenses`
+--
+ALTER TABLE `licenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `music_posts`
 --
 ALTER TABLE `music_posts`
@@ -201,12 +241,12 @@ ALTER TABLE `navbar`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
