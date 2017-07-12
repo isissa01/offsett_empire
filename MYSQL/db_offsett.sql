@@ -170,7 +170,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `name`, `stage_name`, `isAdmin`) VALUES
 (1, 'isissa01', 'isissa01@gmail.com', '$2y$15$HZDa.TEi/uGoROcoBQhGfuYEUgRvBtNYRINr9iw6IKunjYf1oABLy', 'Issa Issa', 'Issa Famous', 1),
-(5, 'admin', 'admin01@gmail.com', '$2y$15$0z5JRZpsuc82fSKS3BGLte7.1IZfIQujBYYkYmKV5uWlVV2QHH8Pq', '', NULL, 0),
+(5, 'admin', 'admin01@gmail.com', '$2y$15$0z5JRZpsuc82fSKS3BGLte7.1IZfIQujBYYkYmKV5uWlVV2QHH8Pq', '', NULL, 1),
 (7, 'musa01', 'musa01@gmail.com', '$2y$15$shyEo8.v8.qE35OkAqixCeWngi7rAtHc1yJn8GdAkAcjtxzaDlgom', 'Musa Issa', 'Young Fly', 0);
 
 --
