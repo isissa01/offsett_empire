@@ -48,10 +48,10 @@ include 'includes/db.php';
             <table class ='table playlist-table' >
              <thead>
                <tr>
-                <th colspan="2" scope="col" class="title-header">title</th>
-                <th colspan="1" scope="col" class="time-header">time</th>
-                <th colspan="1" scope="col" class="bpm-header">bpm</th>
-                <th colspan="1" scope="col" class="tags-header">tags</th>
+                <th colspan="1" scope="col" class="title-header">title</th>
+                <th colspan="1" scope="col" class="time-header hidden-xs hidden-sm">time</th>
+                <th colspan="1" scope="col" class="bpm-header hidden-xs hidden-sm">bpm</th>
+                <th colspan="1" scope="col" class="tags-header hidden-xs hidden-sm">tags</th>
                 <th colspan="1" scope="col" class="license-header">License</th>
                 <th colspan="1" scope="col" class="price-header">price</th>
               </tr>

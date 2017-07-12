@@ -51,7 +51,6 @@ foreach($_SESSION['shopping_cart'] as $song){
 
 
 }
-emailbeat();
-$_SESSION["shopping_cart"] = [];
 
-header('Location: account.php');
+
+header("Location: send_beats.php?transaction=$paymentId");

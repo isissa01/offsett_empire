@@ -12,13 +12,19 @@ if(isset($_SESSION['logged_in'])){
          
          <?php 
   if (isset($_POST['username'])){
+  $name = $_POST['name'];
+  $stage_name = $_POST['stage_name'];
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $confirm_password = $_POST['confirm_password'];
   $email    = $_POST['email'];
   
   
+  $name = mysqli_real_escape_string($connection, $name);
+  $stage_name = mysqli_real_escape_string($connection, $stage_name);
   $username = mysqli_real_escape_string($connection, $username);
   $password= mysqli_real_escape_string($connection, $password);
+  $confirm_password= mysqli_real_escape_string($connection, $confirm_password);
   $email= mysqli_real_escape_string($connection, $email);
   
 //  $salt = 'ilovemywifeaminabutsheplaywaytoomuch1770420';
@@ -29,7 +35,7 @@ if(isset($_SESSION['logged_in'])){
     $errors[] = "Password Cannot Not Be Empty!";
   } else {
         
-        $errors = signup($username, $hashed_password, $email);
+        $errors = signup($username, $hashed_password, $email, $name, $stage_name);
       }
     
     if($errors === 'done'){
@@ -56,33 +62,53 @@ if(isset($_SESSION['logged_in'])){
                        }}
                        ?>
           <form action="" method='post' class="clearfix">
+          <div class="row">
+             <div class="col-md-6">
+               <div class="form-group">
+              <label class="label" for="#name">Name:</label>
+              <input type="text" id="name" placeholder="Name (first and last)" class="form-control input-lg" name="name" required>
+              </div>
+            </div>
+              <div class="col-md-6">
+               <div class="form-group">
+                <label class="label" for="#stage_name">Stage Name:</label>
+                <input type="text" id="stage_name" placeholder="Stage Name" class="form-control input-lg" name="stage_name">
+              </div>
+            </div>
+            
+            </div>
            <div class="row">
              <div class="col-md-6">
                <div class="form-group">
               <label class="label" for="#username">Username:</label>
-              <input type="text" id="username" placeholder="Username" class="form-control input-lg" name="username">
-            </div>
-               
+              <input type="text" id="username" placeholder="Username" class="form-control input-lg" name="username" required>
+              </div> 
              </div>
+             
+             <div class="col-md-6">
+               <div class="form-group">
+              <label class="label" for="#email">Email:</label>
+              <input type="email" id="email" placeholder="Email" class="form-control input-lg" name="email" required>
+              </div>
+            </div>
+             </div>
+             
+             
+            <div class="row">
              <div class="col-md-6">
                <div class="form-group">
               <label class="label" for="#password">Password:</label>
-              <input type="password" id="password" name="password" placeholder="Password" class="form-control input-lg" name="username">
+              <input type="password" id="password" placeholder="Password" class="form-control input-lg" name="password" required>
+            </div>
+             </div>
+             <div class="col-md-6">
+               <div class="form-group">
+              <label class="label" for="#confirm_password">Password:</label>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" class="form-control input-lg" name="confirm_password" required>
             </div>
                
              </div>
            </div>
-            
-            
-            <div class="form-group">
-              <label class="label" for="#email">Email:</label>
-              <input type="email" id="email" placeholder="Email" class="form-control input-lg" name="email">
-            </div>
-            <div class="input-group remember">
-              
-              <input type="checkbox" id="remember"   value= '1' name="remember-me">
-              <label  for="#remember">Remember Me</label>
-            </div>
             
             <input type="submit" value="Sign Up" class="btn btn-danger btn-lg pull-right">
             

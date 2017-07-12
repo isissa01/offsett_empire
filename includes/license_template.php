@@ -10,7 +10,7 @@ else {
   die();
 }
 $buyer_name = (isset($_SESSION['name']) ? $_SESSION['name'] : "John Doe");
-$buyer_stage_name = "Young Fly";
+$buyer_stage_name = (isset($_SESSION['stage_name']) ? $_SESSION['stage_name'] : "John Doe");
 $beat_name = 'Stream';
 $producer_name = "Issa Famous";
 
@@ -65,7 +65,7 @@ $time =  $date->format(' D,  M d Y H:i:s P');
 
 <p><strong>Credit.</strong> Licensee shall acknowledge the original authorship of the Composition appropriately and reasonably in all media and performance formats under the name {$producer_name} in writing where possible and vocally otherwise.</p>
 
-<p><strong>Consideration.</strong> In consideration for the rights granted under this agreement, Licensee shall pay to licensor the sum of {$price} US dollars and other good and valuable consideration, payable to \"{$producer_name}\", receipt of which is hereby acknowledged. If the Licensee fails to account to the Licensor, timely complete the payments provided for hereunder, or perform its other obligations hereunder, including having insufficient bank balance, the licensor shall have the right to terminate License upon written notice to the Licensee. Such termination shall render the recording, manufacture and/or distribution of Recordings for which monies have not been paid subject to and actionable infringements under applicable law, including, without limitation, the United States Copyright Act, as amended.</p>
+<p><strong>Consideration.</strong> In consideration for the rights granted under this agreement, Licensee shall pay to licensor the sum of $$price US dollars and other good and valuable consideration, payable to \"{$producer_name}\", receipt of which is hereby acknowledged. If the Licensee fails to account to the Licensor, timely complete the payments provided for hereunder, or perform its other obligations hereunder, including having insufficient bank balance, the licensor shall have the right to terminate License upon written notice to the Licensee. Such termination shall render the recording, manufacture and/or distribution of Recordings for which monies have not been paid subject to and actionable infringements under applicable law, including, without limitation, the United States Copyright Act, as amended.</p>
 
 <p><strong>Indemnification.</strong> Accordingly, Licensee agrees to indemnify and hold Licensor harmless from and against any and all claims, losses, damages, costs, expenses, including, without limitation, reasonable attorney's fees, arising of or resulting from a claimed breach of any of Licensee's representations, warranties or agreements hereunder.</p>
 

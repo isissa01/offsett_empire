@@ -128,12 +128,6 @@ $('.form').submit((event)=>{
   
   
 // Scroll to the top
-//
-//$('.close').click(function(){
-//  $(this).parent().slideUp();
-//});
-
-
 $(document).on("click","#back_to_top",function(e){
     e.preventDefault();
     $("body,html").animate({scrollTop:0},$(window).scrollTop()/3,"linear");
@@ -145,37 +139,27 @@ const width_check = ()=>{
   
   if($win.width() < 683){
     
-    $('.playlist-table .tags-header').hide();
-    $('.playlist-table .song_tags').hide();
-    
-    $('.playlist-table .time-header').hide();
-    $('.playlist-table .song_time').hide();
-    
-    $('.playlist-table .bpm-header').hide();
-    $('.playlist-table .song_bpm').hide();
-    
     $('.add-to-cart').removeClass("pull-right");
   }
   else if($win.width() < 769){
     $('.tags').removeClass("pull-left"); 
     $('.add-to-cart').addClass("pull-right");
-    
-    $('.playlist-table .time-header').show();
-    $('.playlist-table .song_time').show();
-    
-    $('.playlist-table .bpm-header').show();
-    $('.playlist-table .song_bpm').show();
-    
+
     
     
     
   }
+  
   else{
     
      $('.tags').addClass("pull-left");
-    $('.playlist-table .tags-header').show();
-    $('.playlist-table .song_tags').show();
      
+  }
+  if($win.width() > 991){
+    $('.title-header').attr('colspan', "2");
+  }
+  else{
+    $('.title-header').attr('colspan', "1");
   }
   
 }
@@ -200,8 +184,7 @@ function initAudio(track){
       let $tag = $('<li class="tag"></li>').text('#' + tag_string);
       $tags.append($tag);
     });
-
-
+  
     songAudio = new Audio(song)
 
     $(".top-player .title").text(title);
@@ -243,7 +226,7 @@ const getSongs= () =>{
               secs = '0' + secs;
             }
             let duration = mins + ':' + secs;
-            $col.addClass("song_time").text(duration);
+            $col.addClass("song_time hidden-xs hidden-sm").text(duration);
             audio = null;
 
           }
@@ -252,17 +235,21 @@ const getSongs= () =>{
         }
         else if(key === "cover"){
 
-          $col.css('background-image', "url(" + value + ")").addClass('cover');
+          $col.css('background-image', "url(" + value + ")").addClass('cover  hidden-xs hidden-sm');
           $row.prepend($col);      
         }
+      
         else{
+            if(key === 'song_tags' || key === 'song_bpm'){
+               $col.addClass("hidden-xs hidden-sm");
+               }    
           $col.addClass(key).text(value);
           $row.append($col);
         }
 
 
       });
-      let $license =$('<td class="song_license"><select class="license-select" name="licenses"><option value="MP3">Mp3 License</option><option value="WAV">WAV License</option><option value="Premium">Premium License</option><option value="Exclusive">Exclusive License</option></select></td>'); 
+      let $license =$('<td class="song_license"><select class="license-select" name="licenses"><option value="MP3">Mp3 License</option><option value="WAV">WAV License</option><option value="Premium">Premium License</option><option value="Unlimited">Unlimited License</option></select></td>'); 
       let $price = $('<td colspan="1" class="song_price">$<span class="price">24.99</span> <a data-id='+ song_id +' href="cart.php" class="add-btn"><span class="fa fa-shopping-cart"></span> ADD</a></td>');
 
       $row.append($license);
@@ -275,10 +262,16 @@ const getSongs= () =>{
           
       width_check();
       let $first = $(".playlist-table .track").first();
+      $first.addClass("active");
       initAudio($first);
       play();
 
+      $(songAudio).bind('timeupdate', function(){
+        if (songAudio.currentTime == songAudio.duration){
+          next();
+        }
 
+      });
 
 
   }
@@ -343,7 +336,7 @@ $('.playlist-table tbody').change(function(event){
     case "Premium":
       price = "80.00";
       break;
-    case "Exclusive":
+    case "Unlimited":
       price = "200.00";
       break;
                 }
@@ -358,7 +351,12 @@ $('.playlist-table tbody').click(function(event){
   event.preventDefault();
 if($(event.target).parent().hasClass('track')){
   songAudio.pause();
-  initAudio($(event.target).parent());
+  $track = $(event.target).parent();
+  $(".track").removeClass("active");
+  $track.addClass('active');
+  
+  
+  initAudio($track);
   play();
 }
 else if($(event.target).parent().hasClass('song_price')){
@@ -366,7 +364,7 @@ else if($(event.target).parent().hasClass('song_price')){
   let id= $(event.target).data('id');
   let price= $(event.target).siblings('.price').html();
 
-  let license =$(event.target).parent().siblings(".song_license").children(".license-select").val() + " License";
+  let license =$(event.target).parent().siblings(".song_license").children(".license-select").val();
   
   // Sending the Ajax request to add the item to the cart
   $.ajax(url,{
@@ -412,7 +410,19 @@ function play(){
 //  show_duration();
 }
 
+function next(){
+  songAudio.pause();
+  var next = $('.track.active').next();
+  $(".track").removeClass("active");
+ 
+  if (next.length==0){
+    next = $("tbody .track:first-child");
+  }
+   next.addClass("active");
+  initAudio(next);
+  play();
 
+}
 
 
 
@@ -460,78 +470,4 @@ $('#licenses button[data-toggle="modal"]').click(function(){
 
 
 
-
-function next(){
-  songAudio.pause();
-  var next = $('.active').next();
-  $(".song").removeClass("active");
-  next.addClass("active");
-  if (next.length==0){
-    next = $("#library li:first-child");
-  }
-  initAudio(next);
-  play();
-
-}
-$(".next").click(function(){
-  next();
-});
-
-$(".prev").click(function(){
-  songAudio.pause();
-  var prev = $('.active').prev();
-  $(".song").removeClass("active");
-  prev.addClass("active");
-  if (prev.length==0){
-    prev = $("#library li:last-child");
-  }
-  initAudio(prev);
-  play();
-
-});
-
-$(".volume").change(function(){
-  audio.volume = parseFloat(this.value /10);
-});
-
-$(".song").click(function(){
-  audio.pause();
-  initAudio($(this));
-  play();
-});
-
-function show_duration(){
-
-  //Total Duration
-  $(audio).bind('timeupdate', function(){
-    var total_seconds = parseInt(audio.duration % 60);
-    var total_minutes = parseInt((audio.duration /60) % 60);
-    if(total_seconds <10){
-      total_seconds = '0' + total_seconds;
-    }
-
-    //Current time
-    var current_seconds = parseInt(audio.currentTime % 60);
-    var current_minutes = parseInt((audio.currentTime /60) % 60);
-    if(current_seconds <10){
-      current_seconds = '0' + current_seconds;
-    }
-    $(".duration").html(current_minutes + ':' + current_seconds);
-    var value = 0;
-    if (audio.currentTime > 0){
-      value = Math.floor((100/audio.duration) * audio.currentTime);
-      $(".total_duration").html(total_minutes + ":" + total_seconds);
-    }
-    $(".progress_bar").val(value);
-    if (audio.currentTime == audio.duration){
-      next();
-    }
-
-  });
-}
-
-$(".progress_bar").change(function(){
-  var current_time = Math.floor(this.value /(100/audio.duration));
-  audio.currentTime = current_time;
-});
 

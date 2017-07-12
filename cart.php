@@ -74,7 +74,7 @@ include 'header.php';}
 
                   <tr>
                     <td><?php echo $item['name']; ?></td>
-                    <td><?php echo $item['license']; ?></td>
+                    <td><?php echo $item['license']; ?> License</td>
                     <td><?php echo $item['price']; ?></td>
                     <td><a href="cart.php?delete_item=<?php echo $item['id']; ?>" class="btn btn-primary">Delete</a></td>
 

@@ -27,10 +27,10 @@
                      if(isset($_SESSION['logged_in'])){
                        ?>
                        <li class="dropdown">
-                        <a class="toggle" id="userMenu" data-toggle="dropdown" aria-expanded="true">
+                        <a class="toggle" data-target="userMenu" data-toggle="dropdown" aria-expanded="true">
     User Menu
                           <span class="caret"></span></a>
-                         <ul class="dropdown-menu">
+                         <ul class="dropdown-menu" id="userMenu">
                            <li><a href="acount.php">Account</a></li>
                            <li><a href="change_password.php">Change Password</a></li>
                            <?php 

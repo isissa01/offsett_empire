@@ -2,6 +2,37 @@
 session_start();
 include 'includes/db.php';
 require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
+if (!isset($_GET['transaction']) || empty($_GET['transaction'])){
+  header("Location: index.php");
+  die();
+}
+$transaction = mysqli_real_escape_string($_GET['transaction']);
+
+$query = "SELECT * FROM transaction WHERE paymentId  = $transaction";
+$result = mysqli_query($connection, $query);
+if(mysqli_num_rows($result) == 0){
+  header("Location: index.php");
+  die();
+  }
+  $beats = [];
+  $current_buyer_id = $_SESSION['id'];
+  while($row = mysqli_fetch_assoc($result)){
+    
+    $buyer_id = $row['buyer_id'];
+    if ($buyer_id === $current_buyer_id){
+      $beats[] = [ 
+      'id'      => $row['beat_id'],
+      'license' => $row["license"]
+      ];
+    }
+    
+  }
+
+
+if ($buyer_id !== $current_buyer_id){
+
+}
+
 
 $bodytext = "<!DOCTYPE html>
 <html>
@@ -28,20 +59,25 @@ $mail->AddAddress( 'isissa01@gmail.com' );
 
 foreach ($_SESSION['shopping_cart'] as $item){
   $id = (int) $item['id'];
+  
+  foreach($beats as $beat){
+    if ($beat['id'] === $id){
+      
+      $query = "SELECT * FROM beats where id = {$id} LIMIT 1";
+      $result = mysqli_query($connection, $query);
 
-  $query = "SELECT * FROM beats where id = {$id} LIMIT 1";
-  $result = mysqli_query($connection, $query);
-
-  if(!$result){
-    die('error');
-  }
-  while($row = mysqli_fetch_assoc($result)){
-
+    if(!$result){
+      die('error');
+    }
+    while($row = mysqli_fetch_assoc($result)){
 
       $mail->AddAttachment( $row['filename'] ,"{$row['name']}.mp3");
 
+    }
+      
+      
+    }
   }
-  $mail->clearAttachments();
 }
 
 // $mail->AddAttachment('media/lovely_town.mp3', 'Lovely Town.mp3');
@@ -53,10 +89,8 @@ if(!$mail->Send()){
 }
 else{
   echo "Success Message Sent Succesfully";
-  $zone = new DateTimeZone('America/New_York');
-  $date = date('Y-m-d H:i:s');
-  echo $date;
-  echo "<br> Yes";
+  $_SESSION["shopping_cart"] = [];
+header("location: account.php?success");
 
 }
 ?>

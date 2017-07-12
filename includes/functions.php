@@ -6,7 +6,7 @@ function emailBeats(){
 }
 
 
-function signup($username, $password, $email){
+function signup($username, $password, $email, $name, $stage_name){
   global $connection;
   $errors =[];
 
@@ -16,7 +16,7 @@ function signup($username, $password, $email){
 
   $result = mysqli_query($connection, $query);
   if (mysqli_num_rows($result) == 0){
-    $signup_query = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+    $signup_query = "INSERT INTO users (username, password, email, name, stage_name) VALUES ('$username', '$password', '$email', '$name', '$stage_name')";
     $signup_result = mysqli_query($connection, $signup_query);
     if(!$signup_result){
       $errors[] = 'Failed To Sign You up try again Later!';
@@ -54,6 +54,9 @@ function login($username, $password){
       'id'              => $row['id'],
       'isAdmin'         => $row['isAdmin'],
       'email'           => $row['email'],
+      'username'        => $row['username'],
+      'name'            => $row['name'],
+      'stage_name'      => $row['stage_name'],
 
 
     );
