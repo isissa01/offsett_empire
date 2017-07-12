@@ -1,8 +1,32 @@
 <?php
 include 'db.php';
 
-function emailBeats(){
+function getLicense($transaction, $beat_name, $license_name){
+  global $connection;
+  $url = 'http://localhost/offsett_empire/includes/license_template.php';
+  
+  
+  $query = "SELECT * FROM licenses WHERE license_name = '{$license_name}'";
+  $result = mysqli_query($connection, $query);
+  if(!$result){die();}
+  foreach($result as $row){
+    $license_id = $row['id'];
+  }
+  $data = array('beat_name' => "{$beat_name}",'id' => "{$license_id}",'transaction' => "{$transaction}");
 
+  // use key 'http' even if you send the request to https://...
+  $options = array(
+      'http' => array(
+          'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+          'method'  => 'POST',
+          'content' => http_build_query($data)
+      )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+  if ($result === FALSE) { /* Handle error */ }
+
+  return $result;
 }
 
 

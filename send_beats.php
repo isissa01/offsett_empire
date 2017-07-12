@@ -1,4 +1,5 @@
 <?php
+include 'includes/functions.php';
 session_start();
 include 'includes/db.php';
 require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
@@ -45,16 +46,10 @@ $bodytext = "<!DOCTYPE html>
   <body>
   <div class='container'>
     <h1>Your Purchased Beats</h1>";
-  foreach ($_SESSION['shopping_cart'] as $item){
-    $bodytext .= "<div class='well'>";
-    $bodytext .= "<p>{$item['name']}</p>";
-    $bodytext .= "</div>";
-  }
-$bodytext .= "</div></body></html>";
+  
 
 $mail = new PHPMailer();
-$mail->From      = 'beats@offsettempire.com';
-$mail->FromName  = 'Beats Store';
+$mail->setFrom('beats@offsettempire.com', 'Beats Store');
 $mail->addReplyTo('beats@offsettempire.com', 'Beat Store');
 $mail->FromName  = 'Beats Store';
 $mail->Subject   = 'Here Are Your Purchased Beats  From The Beat STORE';
@@ -64,6 +59,7 @@ $mail->AddAddress( 'isissa01@gmail.com' );
   
 foreach($beats as $beat){
     $id = $beat['id'];
+    $license = $beat['license'];
       $query = "SELECT * FROM beats where id = {$id} LIMIT 1";
       $result = mysqli_query($connection, $query);
 
@@ -71,14 +67,36 @@ foreach($beats as $beat){
       die('error');
     }
     while($row = mysqli_fetch_assoc($result)){
+      $file_content = strip_tags(getLicense($transaction, $row['name'], $license));
+      if (!file_exists('./licenses')) {
+        mkdir('./licenses', 0777, true);
+      }
+      $license_file_name ="./licenses/{$row['name']}_{$license} license_{$_SESSION['name']}.txt";
       
-      $mail->AddAttachment( $row['filename'] ,"{$row['name']}.mp3");
+      try {
+        $license_file = fopen($license_file_name, 'w');
+        fwrite($license_file, $file_content);
+      }catch (Exception $e){
+        die($e);
+      }
+      
+      
+      
+      $mail->AddAttachment( $row['cover_image'] ,"{$row['name']}.mp3");
+      $mail->AddAttachment( $license_file_name, "{$row['name']}_{$license} license_{$_SESSION['name']}.txt");
+      
+      $bodytext .= "<div class='well'>";
+      $bodytext .= "<p>{$row['name']}</p>";
+      $bodytext .= "</div>";
 
     }
       
       
 }
-
+foreach ($_SESSION['shopping_cart'] as $item){
+    
+  }
+$bodytext .= "</div></body></html>";
 // $mail->AddAttachment('media/lovely_town.mp3', 'Lovely Town.mp3');
 // $mail->AddAttachment('media/stream1.mp3', 'Stream.mp3');
 
@@ -87,8 +105,8 @@ if(!$mail->Send()){
 
 }
 else{
-  echo "Success Message Sent Succesfully";
   $_SESSION["shopping_cart"] = [];
+  $mail->clearAttachments();
   header("location: account.php?success");
 
 }

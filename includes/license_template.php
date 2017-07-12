@@ -11,7 +11,7 @@ else {
 }
 $buyer_name = (isset($_SESSION['name']) ? $_SESSION['name'] : "John Doe");
 $buyer_stage_name = (isset($_SESSION['stage_name']) ? $_SESSION['stage_name'] : "John Doe");
-$beat_name = 'Stream';
+$beat_name = (isset($_POST['beat_name']) ? $_POST['beat_name'] : "DEMO BEAT");
 $producer_name = "Issa Famous";
 
 
@@ -38,7 +38,6 @@ foreach($result as $row){
 
   $response['type'] = $license_name;
 }
-$beat_name = 'DEMO';
 
 
 $zone = new DateTimeZone('America/New_York');
@@ -84,8 +83,11 @@ $time =  $date->format(' D,  M d Y H:i:s P');
 <p><strong>Publishing.</strong> Licensor grants Licensee 0% of publishing rights. Licensor maintains all publishing rights.</p>
 ";
 
-
-$response['content'] = $license_temp;
-
-
- echo json_encode($response);
+if(isset($_POST['transaction'])){
+  echo $license_temp;
+  
+}
+else{
+    $response['content'] = $license_temp;
+    echo json_encode($response);
+}
