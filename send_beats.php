@@ -4,17 +4,21 @@ include 'includes/db.php';
 require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
 if (!isset($_GET['transaction']) || empty($_GET['transaction'])){
   header("Location: index.php");
-  die();
+  die('no tansaction id');
 }
-$transaction = mysqli_real_escape_string($_GET['transaction']);
+$transaction = mysqli_real_escape_string($connection, $_GET['transaction']);
 
-$query = "SELECT * FROM transaction WHERE paymentId  = $transaction";
+$query = "SELECT * FROM transaction WHERE paymentId  = '$transaction'";
 $result = mysqli_query($connection, $query);
 if(mysqli_num_rows($result) == 0){
   header("Location: index.php");
-  die();
+  die('no results');
   }
   $beats = [];
+if(!isset($_SESSION['id'])){
+  header("location: login.php");
+  die();
+}
   $current_buyer_id = $_SESSION['id'];
   while($row = mysqli_fetch_assoc($result)){
     
@@ -25,13 +29,13 @@ if(mysqli_num_rows($result) == 0){
       'license' => $row["license"]
       ];
     }
+    else {
+      header("location: index.php");
+      die("not right buyer");
+    }
     
   }
 
-
-if ($buyer_id !== $current_buyer_id){
-
-}
 
 
 $bodytext = "<!DOCTYPE html>
@@ -57,12 +61,9 @@ $mail->Subject   = 'Here Are Your Purchased Beats  From The Beat STORE';
 $mail->msgHTML($bodytext);
 $mail->AddAddress( 'isissa01@gmail.com' );
 
-foreach ($_SESSION['shopping_cart'] as $item){
-  $id = (int) $item['id'];
   
-  foreach($beats as $beat){
-    if ($beat['id'] === $id){
-      
+foreach($beats as $beat){
+    $id = $beat['id'];
       $query = "SELECT * FROM beats where id = {$id} LIMIT 1";
       $result = mysqli_query($connection, $query);
 
@@ -70,14 +71,12 @@ foreach ($_SESSION['shopping_cart'] as $item){
       die('error');
     }
     while($row = mysqli_fetch_assoc($result)){
-
+      
       $mail->AddAttachment( $row['filename'] ,"{$row['name']}.mp3");
 
     }
       
       
-    }
-  }
 }
 
 // $mail->AddAttachment('media/lovely_town.mp3', 'Lovely Town.mp3');
@@ -90,7 +89,7 @@ if(!$mail->Send()){
 else{
   echo "Success Message Sent Succesfully";
   $_SESSION["shopping_cart"] = [];
-header("location: account.php?success");
+//  header("location: account.php?success");
 
 }
 ?>

@@ -32,11 +32,11 @@ body{
 }
 
 #navbar-scroll a:hover{
-  color: #eb4839;
+  color: red;
   background: white;
 }
 .red{
-  color: #eb4839;
+  color: red;
 }
 
 .navbar-brand:hover .red{
@@ -463,9 +463,11 @@ img{
 #licenses{
   color: black;
   background: #f9f9f9;
-  padding-top:70px;
   text-align: center;
   
+}
+#licenses h1{
+  padding: 30px 0 0 ;
 }
 #licenses .col-3{
     background: black;

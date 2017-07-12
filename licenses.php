@@ -2,7 +2,8 @@
 <div class="wrap">
  <section id="licenses">
      <div class="container">
-       <h2>Licenses</h2>
+       <h1>Licenses</h1>
+       <p class="lead">Choose the right license for you.</p>
         <div class="row">
           <div class="col-sm-3">
           <div class="panel">

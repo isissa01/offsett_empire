@@ -39,7 +39,6 @@ include 'includes/db.php';
                <li class="tag">#Travis Scott</li>
                <li class="tag">#21 Savage</li>
              </ul>
-             <button class="btn btn-md add-to-cart"><span class="fa fa-shopping-cart"></span> Add To Cart</button>
              </div>
 
            </div>
@@ -72,7 +71,7 @@ include 'includes/db.php';
            <h2>About Us</h2>
            <div class="row">
              <div class="col-sm-4">
-               <h3>Dj Foreign</h3>
+               <h3>Issa Famous</h3>
                <img src="images/portfolio.jpg" alt="">
                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, dolore nam eius fugiat eaque tenetur. Laudantium, ab, ipsa! Optio in provident culpa asperiores fugit magnam temporibus sapiente iste, reiciendis at.</p>
              </div>
