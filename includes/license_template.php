@@ -9,7 +9,7 @@ else {
   echo 'none selected';
   die();
 }
-if($_POST['transaction']){
+if(isset($_POST['transaction'])){
   $transaction = mysqli_real_escape_string($connection, $_POST['transaction']);
 
   $query = "SELECT * FROM transaction WHERE paymentId  = '$transaction'";
@@ -40,10 +40,8 @@ else {
   $buyer_stage_name = (isset($_SESSION['stage_name']) ? $_SESSION['stage_name'] : "John Doe");
 }
 
-
-$beat_name = (isset($_POST['beat_name']) ? $_POST['beat_name'] : "DEMO BEAT");
 $producer_name = "Issa Famous";
-
+$beat_name = (isset($_POST['beat_name']) ? $_POST['beat_name'] : "DEMO BEAT");
 
 $response = [];
 

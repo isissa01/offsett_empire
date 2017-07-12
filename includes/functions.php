@@ -101,6 +101,10 @@ function login($username, $password){
 
 
    }
+    else{
+      $error = "<p class='alert alert-danger'>Username and Password Combination Not In System, Try Again! <span class='close'>X</span></p>";
+      return $error;
+    }
 
   }
 
