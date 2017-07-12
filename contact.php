@@ -2,6 +2,12 @@
 
 include 'includes/db.php';
 include 'header.php';
+require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
+
+
+?>
+<div class="wrap">
+<?php
 
 if (isset($_POST['name'])){
   $name = $_POST['name'];
@@ -13,36 +19,55 @@ if (isset($_POST['name'])){
   $name = mysqli_real_escape_string($connection, $name);
   $from = mysqli_real_escape_string($connection, $from);
   
-  sendMail($from, $name, $message);
+//  sendMail($from, $name, $message);
+  $mail = new PHPMailer();
+  $mail->setFrom('contact@offsettempire.com', 'Contact Offsett Empire');
+  $mail->addReplyTo($from, $name);
+  $mail->Subject   = 'Message';
+  $mail->Body = $message;
+
+  $mail->AddAddress( 'isissa01@gmail.com' );
+ 
+  if(!$mail->Send()){
+     echo "Error Message Did not Send!! " . $mail->ErrorInfo;
+    header('location: contact.php?failed');
+
+  }
+  else{
+    header('location: contact.php?success');
+
+    
+  }
 }
 
 
 ?>
  
-<div class="wrap">
+
          <section id="contact">
              <div class="container">
                <h2>G<span class="red_underline">ET IN TOUC</span>H</h2>
                  <div class="row">
                      <div class="col-md-8 col-md-offset-2">
-                         <form action="" class="clearfix">
+                        <p class="alert alert-success"><?php if(isset($_GET['success'])) echo "Message Sent Successfully."; ?><span class="close" data-dismiss='alert'>&times;</span></p>
+                         <form action="" method="post" class="clearfix">
                             <div class="row">
                                 <div class="col-md-6">
                                      <div class="form-group">
                                          <label for="name">NAME:</label>
-                                         <input type="text" id="name" class="form-control input-lg">
+                                         <input type="text" id="name" name="name" class="form-control input-lg">
                                      </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                          <label for="email">EMAIL:</label>
-                                         <input type="email" id="email" class="form-control input-lg">
+                                         <input type="email" id="email" name="email" class="form-control input-lg">
                                      </div>
                                 </div>
                             </div>
                              <div class="form-group">
                                  <label for="message">MESSAGE:</label>
-                                 <textarea  rows= 7 id="message" class="form-control"></textarea>
+                                 <textarea  rows= 7 id="message" name="message" class="form-control"></textarea>
                              </div>
                            <button type="submit" class="btn pull-right btn-danger" >SEND</button>
                          </form>
