@@ -53,7 +53,7 @@ $mail->setFrom('beats@offsettempire.com', 'Beats Store');
 $mail->addReplyTo('beats@offsettempire.com', 'Beat Store');
 $mail->FromName  = 'Beats Store';
 $mail->Subject   = 'Here Are Your Purchased Beats  From The Beat STORE';
-$mail->msgHTML($bodytext);
+
 $mail->AddAddress( 'isissa01@gmail.com' );
 
   
@@ -97,6 +97,7 @@ foreach ($_SESSION['shopping_cart'] as $item){
     
   }
 $bodytext .= "</div></body></html>";
+$mail->msgHTML($bodytext);
 // $mail->AddAttachment('media/lovely_town.mp3', 'Lovely Town.mp3');
 // $mail->AddAttachment('media/stream1.mp3', 'Stream.mp3');
 

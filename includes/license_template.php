@@ -9,8 +9,38 @@ else {
   echo 'none selected';
   die();
 }
-$buyer_name = (isset($_SESSION['name']) ? $_SESSION['name'] : "John Doe");
-$buyer_stage_name = (isset($_SESSION['stage_name']) ? $_SESSION['stage_name'] : "John Doe");
+if($_POST['transaction']){
+  $transaction = mysqli_real_escape_string($connection, $_POST['transaction']);
+
+  $query = "SELECT * FROM transaction WHERE paymentId  = '$transaction'";
+  $result = mysqli_query($connection, $query);
+  if(mysqli_num_rows($result) == 0){
+    header("Location: index.php");
+    die('no results');
+  }
+  foreach($result as $row){
+    $buyer_id = $row['buyer_id'];
+
+    
+    $buyer_query = "SELECT * FROM users WHERE id  = '$buyer_id'";
+    $buyer_result = mysqli_query($connection, $buyer_query);
+    if(mysqli_num_rows($buyer_result) == 0){
+      header("Location: index.php");
+      die('no results');
+    }
+    foreach($buyer_result as $buyer_row){
+      $buyer_name = $buyer_row['name'];
+    $buyer_stage_name = $buyer_row['stage_name'];
+    }
+    
+  }
+}
+else {
+  $buyer_name = (isset($_SESSION['name']) ? $_SESSION['name'] : "John Doe");
+  $buyer_stage_name = (isset($_SESSION['stage_name']) ? $_SESSION['stage_name'] : "John Doe");
+}
+
+
 $beat_name = (isset($_POST['beat_name']) ? $_POST['beat_name'] : "DEMO BEAT");
 $producer_name = "Issa Famous";
 
