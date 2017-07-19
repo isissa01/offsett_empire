@@ -1,16 +1,22 @@
 let songAudio;
 let beatFiles = {};
 
+//Hides the Pause button on the player when the page loads so that only the play button shows
+$('.pause').hide();
 
 
 //MUSIC RELEASE PAGE
 
 $('.carousel-inner').children().first().addClass('active');
 
-$('.pause').hide();
+
 
 //CMS PAGE
+
+//This hides the dragover element when the add beat is open on the admin side
 $('.dragover').hide();
+
+//This shows or hides the dragover element when something is draged over it
 const parent = document.querySelectorAll('.files');
 console.log(parent.length);
 for(let i=0; i<parent.length; i++ ){
@@ -27,7 +33,7 @@ for(let i=0; i<parent.length; i++ ){
     $(parent[i].querySelector('.dragover')).hide();
     return false;
   }
-
+   //This adds the file added to the beatFiles array or sets them to be null
     parent[i].ondrop =  function(event){
     $(parent[i].querySelector('.dragover')).hide();
       div= $('<div>');
@@ -74,14 +80,15 @@ for(let i=0; i<parent.length; i++ ){
 
 
 
+//this event happens when the beat form is submitted 
 
 
 $('.form').submit((event)=>{
   event.preventDefault();
-  let input = document.querySelector('#beat').files[0];
-  let beat = (input) ?input :beatFiles.beat;
-  input = document.querySelector('#cover').files[0];
-  let cover = (input) ?input :beatFiles.cover;
+  let beat_input = document.querySelector('#beat').files[0];
+  let beat = (beat_input) ?beat_input :beatFiles.beat;
+  let cover_input = document.querySelector('#cover').files[0];
+  let cover = (cover_input) ?cover_input :beatFiles.cover;
   let name = $('input[name=name]').val();
   let bpm = $('input[name=bpm]').val();
   let tags = $('input[name=tags]').val();
@@ -92,12 +99,13 @@ $('.form').submit((event)=>{
     bpm   : bpm,
     tags  : tags
   };
-
+//this creates a form data anda adds all the inputs into the the new form data array
   let formD = new FormData();
   $.each(data ,(key, value) =>{
     formD.append(key, value);
   });
-
+// this opens an ajax request and sends the input fields to the upload.php page and logs out ('Done')
+//When is it finished
   $.ajax({
     processData: false,
     contentType: false,
@@ -133,7 +141,8 @@ $(document).on("click","#back_to_top",function(e){
     $("body,html").animate({scrollTop:0},$(window).scrollTop()/3,"linear");
 });
 
-
+//This checks the width of the window and changes how elements appear based on 
+//the width
 const $win = $(window);
 const width_check = ()=>{
 
@@ -169,7 +178,7 @@ $win.resize(width_check);
 //Pop up
 
 
-
+//This Initializes the audio to play next and takes in a table row as input
 function initAudio(track){
     let song = track.data("filename");
     let title = track.children('.song_title').text();
