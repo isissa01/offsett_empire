@@ -61,6 +61,7 @@ foreach($_SESSION['shopping_cart'] as $song){
 
 
 }
-
+//After the transaction is added to the database the applications redirects to the send_beats page
+//Sends the beats to the users email
 
 header("Location: send_beats.php?transaction=$paymentId");

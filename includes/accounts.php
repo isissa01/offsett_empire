@@ -1,3 +1,6 @@
+
+<!--This is the accounts section in the admin page-->
+
 <?php 
 
 //ob_start(); 

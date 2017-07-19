@@ -99,13 +99,10 @@ foreach($beats as $beat){
       
       
 }
-foreach ($_SESSION['shopping_cart'] as $item){
-    
-  }
+
 $bodytext .= "</div></body></html>";
 $mail->msgHTML($bodytext);
-// $mail->AddAttachment('media/lovely_town.mp3', 'Lovely Town.mp3');
-// $mail->AddAttachment('media/stream1.mp3', 'Stream.mp3');
+
 
 if(!$mail->Send()){
    echo "Error Message Did not Send!! " . $mail->ErrorInfo;
