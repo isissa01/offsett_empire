@@ -1,5 +1,7 @@
 <?php 
-
+//This is the posts page in the admin section
+//it checks to see which get attributes  are passed to it in the url
+//and based on the attribute it does different things
 
 if (isset($_GET['delete'])){
   $id= $_GET['delete'];

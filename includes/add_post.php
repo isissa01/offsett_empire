@@ -1,4 +1,8 @@
-<form action="" method="post">
+<!--This is the add post section of the admin page-->
+ 
+
+ 
+ <form action="" method="post">
   <div class="form-group">
   <label for="song_name">Song Name: </label>
   <input name="song_name" type="text" class="form-control">

@@ -1,3 +1,7 @@
+<!--This is the footer section it is on another php page so the it can be included dynamically into any page without having to hard code it to each individual page-->
+        
+
+        
 <footer>
          <div class="container">
               <div class="row">

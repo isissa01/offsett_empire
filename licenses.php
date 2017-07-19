@@ -4,6 +4,8 @@
      <div class="container">
        <h1>Licenses</h1>
        <p class="lead">Choose the right license for you.</p>
+       
+<!--       Row Begins       -->
         <div class="row">
           <div class="col-sm-3">
           <div class="panel">
@@ -104,13 +106,13 @@
             </div>
           
           </div>
-        </div>
+        </div> <!--  End Row -->
 
      </div>
  </section>
  
 </div>
-      <!--  Modal -->
+      <!--  License Modal -->
     <div class="modal fade" id="licenseModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

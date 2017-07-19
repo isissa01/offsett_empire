@@ -1,3 +1,7 @@
+<!--This is the header section it is on another php page so the it can be included dynamically into any page without having to hard code it to each individual page-->
+
+
+<!--This include statements include the database and functions from the files-->
 <?php include 'includes/db.php'; ?>
 <?php include 'includes/functions.php';?>
  <?php 
@@ -21,10 +25,6 @@
 
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="ngProfile" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="ngProfile" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="ngProfile" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="ngProfile" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,24 +35,11 @@
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="main.css">
 </head>
-<body data-spy="scroll" data-target="#navbar-scroll">
+<body>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-<!--
-     <div class="social-media">
-       <div class="container">
-                 <div class="social"><a class="fa fa-facebook" href=""></a></div>
-                 <div class="social"><a class="fa fa-youtube-play" href=""></a></div>
-                 <div class="social"><a class="fa fa-twitter" href=""></a></div>
-                 <div class="social"><a class="fa fa-google-plus" href=""></a></div>
-                 <div class="social"><a class="fa fa-instagram" href=""></a></div>
-                 
-        
-      </div>
-     </div>
+
       
--->
-      
-        
+<!-- This Inlcudes the Navbar which is in another file       -->
   <?php include 'includes/navbar.php'; ?>
