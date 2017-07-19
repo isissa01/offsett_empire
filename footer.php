@@ -7,6 +7,8 @@
               <div class="row">
                 <div class="col-sm-7">
                   <ul class="nav navbar-nav">
+                  
+<!--                  This Pulls the links for the navbar from the database dynamically-->
                    <?php 
                      foreach(getNavbar() as $key => $value){
                      

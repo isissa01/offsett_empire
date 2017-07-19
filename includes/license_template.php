@@ -1,3 +1,6 @@
+<!--This is the license page template used on the license page and when the user buys a beat-->
+
+
 <?php
 include 'db.php';
 session_start();
@@ -78,7 +81,7 @@ $date = new DateTime();
 
 $time =  $date->format(' D,  M d Y H:i:s P');
 
-
+//this is the actual string that is either displayed or outputed to a txt file
 
  $license_temp = "<p><p><strong>THIS LICENSE AGREEMENT</strong> is made on {$time} (\"Effective Date\") by and between {$buyer_name} (hereinafter referred to as the \"Licensee\") also, if applicable, professionally known as (". ($buyer_stage_name === '' ? $buyer_name : $buyer_stage_name) . "), and {$producer_name} (\"Songwriter\"). (hereinafter referred to as the \"Licensor\"). Licensor warrants that it controls the mechanical rights in and to the copyrighted musical work entitled {$beat_name} (\"Composition\") as of and prior to the date first written above. The Composition, including the music thereof, was composed by {$producer_name} (\"Songwriter\") managed under the Licensor.</p>
 

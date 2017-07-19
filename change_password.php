@@ -1,3 +1,6 @@
+<!--This page lets the user change their password-->
+
+
 <?php
 
 include 'includes/db.php';

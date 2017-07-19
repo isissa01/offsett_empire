@@ -1,3 +1,6 @@
+<!--This sets up the paypal payment method-->
+
+
 <?php 
 session_start();
 
@@ -19,10 +22,15 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Payment;
 
 if (empty($_SESSION['shopping_cart']) || !isset($_SESSION['shopping_cart'])){
+  header('Location: index.php');
   die();
+
 }
 $items = [];
 $total = 0.00;
+//This Loops through the shopping cart and adds each item to the items array
+//and also sets the values that will be used by paypal that is associated with
+//the item
 foreach($_SESSION['shopping_cart'] as $song){
   
   $product = $song['name'];
@@ -36,6 +44,7 @@ foreach($_SESSION['shopping_cart'] as $song){
     ->setPrice($price);
   $items[] = $item;
 }
+
 $shipping = 0.00;
 
 $payer = new Payer();
@@ -64,6 +73,8 @@ $redirectUrls = new RedirectUrls();
 $redirectUrls->setReturnUrl(SITE_URL . "/pay.php?success=true")
   ->setCancelUrl(SITE_URL . "/pay.php?success=false");
 
+
+//This sets up the payment and sends the user to paypal to make a payment
 $payment = new Payment();
 $payment->setIntent('sale')
   ->setPayer($payer)
