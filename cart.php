@@ -1,3 +1,7 @@
+
+
+<!--This is the cart page -->
+
 <?php
 
 
@@ -5,6 +9,8 @@
 
 include 'includes/db.php';
 
+
+//This adds an item to the cart
 if(isset($_GET['add_cart'])){
 session_start();
 
@@ -29,6 +35,8 @@ session_start();
   ];
   return;
 }
+
+//This deletes an item from the cart
 else if(isset($_GET['delete_item'])){
 session_start();
   $delete = mysqli_real_escape_string($connection, $_GET['delete_item']);
@@ -45,6 +53,8 @@ session_start();
 
 }
 
+
+//This shows the cart
 else {
 
 include 'header.php';}

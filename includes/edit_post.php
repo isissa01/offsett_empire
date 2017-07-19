@@ -1,9 +1,14 @@
+<!--This Page Edits the post that was clicked-->
+
+
+
 <?php 
 if (isset($_GET['edit'])){
   $edit_id = mysqli_real_escape_string($connection, $_GET['edit']);
   $query = "SELECT * FROM music_posts WHERE id= {$edit_id}";
   $result = mysqli_query($connection, $query);
   if(!$result){
+    header("Location: cms.php?source=posts");
     die();
   }
   while($row = mysqli_fetch_assoc($result)){

@@ -1,6 +1,11 @@
 <?php
 include 'db.php';
 
+
+//This is the get license function
+//gets the content of the license file from the license_template and adds
+//The required information to the file based on the transaction id,
+//the beat name and the license name
 function getLicense($transaction, $beat_name, $license_name){
   global $connection;
   $url = 'http://localhost/offsett_empire/includes/license_template.php';
@@ -29,7 +34,7 @@ function getLicense($transaction, $beat_name, $license_name){
   return $result;
 }
 
-
+//This function is used for signing up a new user
 function signup($username, $password, $email, $name, $stage_name){
   global $connection;
   $errors =[];
@@ -63,6 +68,10 @@ function signup($username, $password, $email, $name, $stage_name){
   return $errors;
 }
 
+
+
+
+//This function is used to login existing users
 function login($username, $password){
   global $connection;
   $query = "SELECT * FROM `users` WHERE username ='$username' LIMIT 1";
@@ -110,6 +119,9 @@ function login($username, $password){
 
 }
 
+
+//This function returns a json encoded array of the songs in the database for the playlist
+//on the index page
 function getSongs(){
   global $connection;
   $query = 'SELECT * FROM beats';
@@ -136,6 +148,8 @@ function getSongs(){
   echo json_encode($songs);
 }
 
+
+//This gets the navbar content
 function getNavbar(){
   global $connection;
   $query = 'SELECT * FROM navbar';
@@ -156,16 +170,11 @@ function getNavbar(){
   return $pages;
 
 }
-
+//This function sends emails
 function sendMail($from, $name, $message){
   $from = 'From: '. $from . '\r\n';
   $subject = $name . ' Has A Question';
   $to = 'offsettempire0fficial@gmail.com';
   mail($to, $subject, $message, $from);
 
-}
-
-function addBeat($beat_array){
-
-  $query = "INSERT INTO beats(name, filename, cover_image, bpm, tags) VALUES ('". $beat_array['name'] ."')";
 }

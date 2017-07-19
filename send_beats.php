@@ -1,7 +1,12 @@
+<!--This file send the beats to the client after they pay for the beats -->
+
+
+
 <?php
+include 'includes/db.php';
 include 'includes/functions.php';
 session_start();
-include 'includes/db.php';
+
 require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
 if (!isset($_GET['transaction']) || empty($_GET['transaction'])){
   header("Location: index.php");
@@ -56,7 +61,8 @@ $mail->Subject   = 'Here Are Your Purchased Beats  From The Beat STORE';
 
 $mail->AddAddress( 'isissa01@gmail.com' );
 
-  
+//This loops through the beats and adds them to the email 
+//that is going to be sent as attachments
 foreach($beats as $beat){
     $id = $beat['id'];
     $license = $beat['license'];
@@ -82,7 +88,7 @@ foreach($beats as $beat){
       
       
       
-      $mail->AddAttachment( $row['cover_image'] ,"{$row['name']}.mp3");
+      $mail->AddAttachment( $row['filename'] ,"{$row['name']}.mp3");
       $mail->AddAttachment( $license_file_name, "{$row['name']}_{$license} license_{$_SESSION['name']}.txt");
       
       $bodytext .= "<div class='well'>";

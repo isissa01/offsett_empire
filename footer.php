@@ -1,5 +1,5 @@
 <!--This is the footer section it is on another php page so the it can be included dynamically into any page without having to hard code it to each individual page-->
-        
+      
 
         
 <footer>
@@ -7,11 +7,16 @@
               <div class="row">
                 <div class="col-sm-7">
                   <ul class="nav navbar-nav">
-                   <li><a href="#hero">Buy Beats</a></li>
-                       <li><a href="#about">Beat Licenses</a></li>
-                       <li><a href="#portfolio">Music Releases</a></li>
-                       <li><a href="#portfolio">Blog</a></li>
-                       <li><a href="#contact">Contact</a></li>
+                   <?php 
+                     foreach(getNavbar() as $key => $value){
+                     
+                     ?>
+                     <li <?php if($link == $value['link']){
+                      echo 'class = active'; 
+                     }?>
+                     
+                     ><a href="<?php echo $value['link'];?>"><?php echo $value['page'];?></a></li>
+                     <?php } ?>
                </ul>
                 </div>
                 <div class="col-sm-5 clearfix">

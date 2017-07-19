@@ -1,3 +1,6 @@
+<!--Contact Page-->
+
+
 <?php
 
 include 'includes/db.php';
@@ -9,7 +12,7 @@ require_once "vendor/phpmailer/phpmailer/PHPMailerAutoLoad.php";
 <div class="wrap">
 <?php
 
-if (isset($_POST['name'])){
+if (isset($_POST['name'],$_POST['email'], $_POST['message'])  ){
   $name = $_POST['name'];
   $from = $_POST['email'];
   $message = $_POST['message'];
