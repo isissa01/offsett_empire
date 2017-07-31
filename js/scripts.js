@@ -449,6 +449,7 @@ $('#licenses button[data-toggle="modal"]').click(function(){
   }
 
   $.post(url, data, function(response){
+    
 
     response = JSON.parse(response);
 

@@ -1,33 +1,133 @@
-/**
- * File skip-link-focus-fix.js.
- *
- * Helps with accessibility for keyboard only users.
- *
- * Learn more: https://git.io/vWdr2
- */
-( function() {
-	var isWebkit = navigator.userAgent.toLowerCase().indexOf( 'webkit' ) > -1,
-	    isOpera  = navigator.userAgent.toLowerCase().indexOf( 'opera' )  > -1,
-	    isIe     = navigator.userAgent.toLowerCase().indexOf( 'msie' )   > -1;
-
-	if ( ( isWebkit || isOpera || isIe ) && document.getElementById && window.addEventListener ) {
-		window.addEventListener( 'hashchange', function() {
-			var id = location.hash.substring( 1 ),
-				element;
-
-			if ( ! ( /^[A-z0-9_-]+$/.test( id ) ) ) {
-				return;
-			}
-
-			element = document.getElementById( id );
-
-			if ( element ) {
-				if ( ! ( /^(?:a|select|input|button|textarea)$/i.test( element.tagName ) ) ) {
-					element.tabIndex = -1;
-				}
-
-				element.focus();
-			}
-		}, false );
-	}
-})();
+[{
+  featureType: "poi",
+  elementType: "all",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: -100
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "poi",
+  elementType: "all",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: -100
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "administrative",
+  elementType: "all",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: 0
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "road",
+  elementType: "labels",
+  stylers: [{
+    hue: "#ffffff"
+  }, {
+    saturation: -100
+  }, {
+    lightness: 100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "water",
+  elementType: "labels",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: -100
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "road.local",
+  elementType: "all",
+  stylers: [{
+    hue: "#ffffff"
+  }, {
+    saturation: -100
+  }, {
+    lightness: 100
+  }, {
+    visibility: "on"
+  }]
+}, {
+  featureType: "water",
+  elementType: "geometry",
+  stylers: [{
+    hue: "#ffffff"
+  }, {
+    saturation: -100
+  }, {
+    lightness: 100
+  }, {
+    visibility: "on"
+  }]
+}, {
+  featureType: "transit",
+  elementType: "labels",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: 0
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "landscape",
+  elementType: "labels",
+  stylers: [{
+    hue: "#000000"
+  }, {
+    saturation: -100
+  }, {
+    lightness: -100
+  }, {
+    visibility: "off"
+  }]
+}, {
+  featureType: "road",
+  elementType: "geometry",
+  stylers: [{
+    hue: "#bbbbbb"
+  }, {
+    saturation: -100
+  }, {
+    lightness: 26
+  }, {
+    visibility: "on"
+  }]
+}, {
+  featureType: "landscape",
+  elementType: "geometry",
+  stylers: [{
+    hue: "#dddddd"
+  }, {
+    saturation: -100
+  }, {
+    lightness: -3
+  }, {
+    visibility: "on"
+  }]
+}]

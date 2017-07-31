@@ -1,5 +1,3 @@
-<!--This is the license page template used on the license page and when the user buys a beat-->
-
 
 <?php
 include 'db.php';
